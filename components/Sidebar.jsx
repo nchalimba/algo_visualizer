@@ -12,7 +12,6 @@ import { useRouter } from 'next/router';
 
 const Sidebar = () => {
   const router = useRouter();
-  console.log(router);
 
   const content = [
     { title: 'Home', link: '/', icon: <MdHome /> },
