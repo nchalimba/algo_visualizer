@@ -1,0 +1,33 @@
+.parent {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 0.5px solid black;
+  background-color: white;
+  position: relative;
+  transition: 50ms ease-in-out;
+  margin-top: 1em;
+}
+
+.children {
+  position: relative;
+  display: flex;
+  width: min-content;
+  padding-top: 0.5em;
+  gap: 1em;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (max-width: 1200px) {
+  .children {
+    gap: 0.5em;
+  }
+}
