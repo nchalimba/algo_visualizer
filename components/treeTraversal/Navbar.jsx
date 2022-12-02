@@ -35,7 +35,6 @@ const Navbar = ({ tree, setTree, setVisitedArray }) => {
     setDisableButtons(true);
     const visited = [];
     treeTraversalMap[traversalType](tree, visited);
-    console.log('Visited:', visited);
     animateTree({ visited, setVisitedArray, setDisableButtons, delay });
   };
 
