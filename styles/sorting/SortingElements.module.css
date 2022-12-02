@@ -1,0 +1,17 @@
+.sortingElements {
+  display: flex;
+  margin: 0 2em;
+  height: 100%;
+}
+
+.element {
+  background-color: var(--secondary);
+  width: 100%;
+  transition: 50ms ease-in-out;
+}
+
+@media (max-width: 1200px) {
+  .sortingElements {
+    margin: 0;
+  }
+}

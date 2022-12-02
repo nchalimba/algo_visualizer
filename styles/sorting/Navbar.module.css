@@ -1,0 +1,47 @@
+.buttons {
+  width: 100%;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttons > button {
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+.sliders {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1em;
+}
+
+.slider {
+  display: flex;
+  margin: 0 2em;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.slider > label {
+  width: 20rem;
+  margin-left: 2em;
+}
+
+@media (max-width: 1200px) {
+  .buttons > button {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .buttons > button {
+    padding: 1rem 0.5rem;
+  }
+}
