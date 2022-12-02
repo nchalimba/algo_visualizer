@@ -12,7 +12,6 @@ export const astar = (startNode, endNode, grid) => {
 
   const visitedSet = new Set();
   const priorityQueue = new MinHeap('cost');
-  console.log('PQ', priorityQueue);
   priorityQueue.add({
     node: startNode,
     cost: 0,
@@ -42,7 +41,6 @@ export const astar = (startNode, endNode, grid) => {
       });
     }
   }
-  console.log('dist map', distMap);
   const path = buildPath(distMap, endNode);
   return { path, visitedNodes };
 };
@@ -56,16 +54,12 @@ const buildPath = (distMap, endNode) => {
     path.push(currentNode);
     currentNode = distMap[getNodeKey(currentNode)].prev;
   }
-  console.log(path);
   return path;
 };
 
 const getHeuristic = (node, endNode) => {
-  console.log('Node 1:', node);
-  console.log('Node 2:', endNode);
   const xDistance = Math.abs(endNode.x - node.x);
   const yDistance = Math.abs(endNode.y - node.y);
   const heuristic = Math.sqrt(xDistance ** 2 + yDistance ** 2);
-  console.log('Heuristic: ', heuristic);
   return heuristic;
 };

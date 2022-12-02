@@ -93,29 +93,3 @@ export class MinHeap {
     return Math.floor((index - 1) / 2);
   }
 }
-
-/*
-  
-  const myHeap = new minHeap('cost');
-  
-  myHeap.add({ node: 'A', cost: 0, prev: '' });
-  myHeap.add({ node: 'B', cost: 9, prev: '' });
-  myHeap.add({ node: 'C', cost: 2, prev: '' });
-  myHeap.add({ node: 'D', cost: 4, prev: '' });
-  myHeap.add({ node: 'E', cost: 1, prev: '' });
-  myHeap.add({ node: 'F', cost: 12, prev: '' });
-  myHeap.add({ node: 'G', cost: 3, prev: '' });
-  myHeap.add({ node: 'H', cost: 45, prev: '' });
-  
-  myHeap.update('node', 'B', { node: 'B', cost: 50, prev: 'A' });
-  myHeap.update('node', 'A', { node: 'A', cost: 90, prev: 'A' });
-  myHeap.remove();
-  myHeap.remove();
-  myHeap.remove();
-  myHeap.remove();
-  myHeap.remove();
-  myHeap.remove();
-  
-  console.log(myHeap);
-  
-  */

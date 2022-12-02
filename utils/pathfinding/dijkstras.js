@@ -12,7 +12,6 @@ export const dijkstras = (startNode, endNode, grid) => {
 
   const visitedSet = new Set();
   const priorityQueue = new MinHeap('cost');
-  console.log('PQ', priorityQueue);
   priorityQueue.add({
     node: startNode,
     cost: 0,
@@ -41,7 +40,6 @@ export const dijkstras = (startNode, endNode, grid) => {
       });
     }
   }
-  console.log('dist map', distMap);
   const path = buildPath(distMap, endNode);
   return { path, visitedNodes };
 };
@@ -55,6 +53,5 @@ const buildPath = (distMap, endNode) => {
     path.push(currentNode);
     currentNode = distMap[getNodeKey(currentNode)].prev;
   }
-  console.log(path);
   return path;
 };
