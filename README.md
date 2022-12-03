@@ -1,34 +1,56 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Algorithm Visualizer
 
-## Getting Started
+## Description
 
-First, run the development server:
+This web application enables the visualization of essential algorithms.
+To visit the demo, go to https://chalimba-algo-visualizer.netlify.app/
+<br>
+<br>
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## Technologies
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The following libraries were used while implementing the app:
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+- React
+- Next.js
+- React Icons
+  <br>
+  <br>
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## Features
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+This project includes the following features:
 
-## Learn More
+### Sorting
 
-To learn more about Next.js, take a look at the following resources:
+In this page, you can sort a set of bars. To use this feature:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Click **NEW** to create a random set of bars
+2. Choose one of the following algorithms: **Merge Sort**, **Insertion Sort**, **Quick Sort**, **Heap Sort**
+3. Use the sliders to specify the amount of bars and the delay between animation steps
+4. Click **START**
+   <br>
+   <br>
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Pathfinding
 
-## Deploy on Vercel
+This page enables the calculation of the shortest path between a start node (green) and an end node (red) within a grid. To use this feature:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Click **Clear** to remove all walls and **Random** to create walls at random positions
+2. Choose one of the following algorithms: **Breadth-First Search**, **Dijkstra's Algorithm**, **A\* Search**
+3. Use the sliders to specify the amount of rows and columns, as well as the delay between animation steps
+4. Click the **Pen-Button** and the **Erase-Button** to paint or remove walls
+5. Click the **Move-Button** to move the start or end node
+6. Click **START**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+If you move the start or end node after running the algorithm, the new shortest path is calculated in real-time.
+<br>
+<br>
+
+### Tree Traversal
+
+This page animates the traversal of a complete binary tree. To use this feature:
+
+1. Choose one of the following algorithms: **Inorder Traversal**, **Postorder Traversal**, **Preorder Traversal**, **Level Order Traversal**
+2. Use the sliders to specify the amount of nodes and the delay between animation steps
+3. Click **START**
