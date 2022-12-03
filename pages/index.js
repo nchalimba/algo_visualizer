@@ -20,8 +20,8 @@ export default function Home() {
       description: (
         <p>
           Calculates the shortest path between two nodes within a grid,
-          utilizing <b>Breadth-First Search</b>, <b>Dijkstra's Algorithm</b> and{' '}
-          <b>A* Search</b>
+          utilizing <b>Breadth-First Search</b>,{' '}
+          <b>Dijkstra&apos;s Algorithm</b> and <b>A* Search</b>
         </p>
       ),
     },
