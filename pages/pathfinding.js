@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Navbar from '../components/pathfinding/Navbar';
 import Grid from '../components/pathfinding/Grid';
+import Head from 'next/head';
 
 const PathfindingContainer = () => {
   const [grid, setGrid] = useState([]);
@@ -10,6 +11,11 @@ const PathfindingContainer = () => {
 
   return (
     <div>
+      <Head>
+        <title>Path Visualizer</title>
+        <meta name="description" content="Visualizes pathfinding algorithms" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <Navbar
         grid={grid}
         setGrid={setGrid}

@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/sorting/Navbar';
 import SortingElements from '../components/sorting/SortingElements';
@@ -22,6 +23,11 @@ const SortingContainer = () => {
 
   return (
     <div>
+      <Head>
+        <title>Sorting Visualizer</title>
+        <meta name="description" content="Visualizes sorting algorithms" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <Navbar
         settings={settings}
         setSettings={setSettings}
