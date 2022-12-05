@@ -95,19 +95,19 @@ const Grid = ({
           className={`btn icon-btn ${mode === 'move' && 'btn-active'}`}
           onClick={() => toggleMode('move')}
         >
-          <MdPanTool size="2em" />
+          <MdPanTool size="1.5rem" />
         </button>
         <button
           className={`btn icon-btn ${mode === 'paint' && 'btn-active'}`}
           onClick={() => toggleMode('paint')}
         >
-          <MdEdit size="2em" />
+          <MdEdit size="1.5rem" />
         </button>
         <button
           className={`btn icon-btn ${mode === 'erase' && 'btn-active'}`}
           onClick={() => toggleMode('erase')}
         >
-          <MdEditOff size="2em" />
+          <MdEditOff size="1.5rem" />
         </button>
       </div>
       <div

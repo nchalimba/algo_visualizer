@@ -34,14 +34,25 @@
 }
 
 @media (max-width: 1200px) {
-  .buttons > button {
-    margin-left: 0;
-    margin-right: 0;
-  }
 }
 
 @media (max-width: 768px) {
-  .buttons > button {
-    padding: 1rem 0.5rem;
+  .buttons button {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .slider {
+    margin: 0 0.5em;
+  }
+  .slider > label {
+    width: 10em;
+    margin-left: 0.5em;
+  }
+}
+
+@media (max-width: 540px) {
+  .buttons {
+    flex-wrap: wrap;
+    gap: 0.5em;
   }
 }
