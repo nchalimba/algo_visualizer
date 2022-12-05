@@ -6,13 +6,19 @@ import {
   preorderDFS,
 } from '../../utils/treeTraversal/dfs';
 import { bfs } from '../../utils/treeTraversal/bfs';
-import TypeButton from './TypeButton';
 import { animateTree } from '../../utils/treeTraversal/visualize';
+import Select from '../Select';
 
+const algoOptions = [
+  { label: 'Inorder', value: 'inorder' },
+  { label: 'Postorder', value: 'postorder' },
+  { label: 'Preorder', value: 'preorder' },
+  { label: 'Level Order', value: 'levelorder' },
+];
 const Navbar = ({ tree, setTree, setVisitedArray }) => {
   const [disableButtons, setDisableButtons] = useState(false);
   const [delay, setDelay] = useState(30);
-  const [traversalType, setTraversalType] = useState('inorder');
+  const [traversalType, setTraversalType] = useState();
 
   const handleLengthChange = (e) => {
     const newTree = [];
@@ -32,6 +38,7 @@ const Navbar = ({ tree, setTree, setVisitedArray }) => {
     levelorder: bfs,
   };
   const handleStart = () => {
+    if (!traversalType) return;
     setDisableButtons(true);
     const visited = [];
     treeTraversalMap[traversalType](tree, visited);
@@ -41,40 +48,12 @@ const Navbar = ({ tree, setTree, setVisitedArray }) => {
   return (
     <nav className="navbar">
       <div className={styles.buttons}>
-        <div className={styles.buttonContainer}>
-          dfs
-          <div className={styles.dfsButtons}>
-            <TypeButton
-              currentType="inorder"
-              type={traversalType}
-              label="Inorder"
-              setType={setTraversalType}
-            />
-            <TypeButton
-              currentType="postorder"
-              type={traversalType}
-              label="Postorder"
-              setType={setTraversalType}
-            />
-            <TypeButton
-              currentType="preorder"
-              type={traversalType}
-              label="Preorder"
-              setType={setTraversalType}
-            />
-          </div>
-        </div>
-        <div className={styles.buttonContainer}>
-          bfs
-          <div className={styles.bfsButton}>
-            <TypeButton
-              currentType="levelorder"
-              type={traversalType}
-              label="Level Order"
-              setType={setTraversalType}
-            />
-          </div>
-        </div>
+        <Select
+          options={algoOptions}
+          value={algoOptions.find((option) => option.value === traversalType)}
+          placeholder="Select algo..."
+          onChange={(value) => setTraversalType(value?.value)}
+        />
 
         <button
           className="btn btn-primary"

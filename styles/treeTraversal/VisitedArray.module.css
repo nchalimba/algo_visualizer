@@ -1,3 +1,9 @@
 .array {
   font-size: larger;
 }
+
+@media (max-width: 540px) {
+  .array {
+    font-size: medium;
+  }
+}
