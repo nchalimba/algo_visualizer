@@ -63,12 +63,13 @@ input[type='range']::-webkit-slider-thumb {
 .btn {
   border: none;
   background-color: var(--primary);
-  box-shadow: 1rem;
-  padding: 1rem 1.5rem;
+  padding: 0 1.5rem;
   cursor: pointer;
   font-weight: bold;
   color: white;
   transition: 200ms ease-in-out;
+  height: 2.5rem;
+  font-size: 0.9rem;
 }
 
 .btn:hover {

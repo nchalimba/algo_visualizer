@@ -76,3 +76,12 @@
     width: 90%;
   }
 }
+
+@media (max-width: 540px) {
+  .main {
+    padding: 0 0.5em;
+  }
+  .header {
+    font-size: 2rem;
+  }
+}
