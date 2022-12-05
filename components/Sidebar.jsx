@@ -24,15 +24,11 @@ const Sidebar = () => {
     },
   ];
 
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   return (
     <div className={`${styles.sidebar} ${!open && styles.sidebarClosed}`}>
       <div className={styles.menu}>
-        <MdMenu
-          size={26}
-          className={styles.menuIcon}
-          onClick={() => setOpen(!open)}
-        />
+        <MdMenu className={styles.menuIcon} onClick={() => setOpen(!open)} />
       </div>
       <div className={styles.items}>
         {content.map((item, key) => (
@@ -43,7 +39,7 @@ const Sidebar = () => {
               item.link === router.pathname && styles.itemActive
             }`}
           >
-            <div>{item.icon}</div>
+            <div className={styles.icon}>{item.icon}</div>
             <p
               className={`${!open ? styles.textInvisible : styles.textVisible}`}
             >

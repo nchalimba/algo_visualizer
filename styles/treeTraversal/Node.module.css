@@ -1,6 +1,6 @@
 .parent {
-  width: 50px;
-  height: 50px;
+  width: 3rem;
+  height: 3rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -29,5 +29,18 @@
 @media (max-width: 1200px) {
   .children {
     gap: 0.5em;
+  }
+}
+
+@media (max-width: 768px) {
+  .children {
+    gap: 0;
+  }
+}
+
+@media (max-width: 540px) {
+  .parent {
+    height: 1.5rem;
+    width: 1.5rem;
   }
 }

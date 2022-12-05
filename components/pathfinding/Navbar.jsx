@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../../styles/pathfinding/Navbar.module.css';
 import nodeStyles from '../../styles/pathfinding/Node.module.css';
-import TypeButton from './TypeButton';
 import { astar } from '../../utils/pathfinding/astar';
 import { bfs } from '../../utils/pathfinding/bfs';
 import { visualizePath } from '../../utils/pathfinding/visualize';
 import { dijkstras } from '../../utils/pathfinding/dijkstras';
+import Select from '../Select';
 
 export class Node {
   constructor(i, j, random = false, isStart = false, isEnd = false) {
@@ -17,6 +17,12 @@ export class Node {
     this.weight = 1;
   }
 }
+
+const algoOptions = [
+  { label: 'BFS', value: 'bfs' },
+  { label: "Dijkstra's", value: 'dijkstras' },
+  { label: 'A* Search', value: 'astar' },
+];
 
 const Navbar = ({
   grid,
@@ -32,7 +38,7 @@ const Navbar = ({
   const [amountCols, setAmountCols] = useState(10);
   const [amountRows, setAmountRows] = useState(10);
   const [delay, setDelay] = useState(5);
-  const [algoType, setAlgoType] = useState('bfs');
+  const [algoType, setAlgoType] = useState();
   const [isInitialStart, setIsInitialStart] = useState(true);
 
   const initializeGrid = () => {
@@ -116,6 +122,7 @@ const Navbar = ({
   };
 
   const handleStart = (disableAnimation = false) => {
+    if (!algoType) return;
     setDisableControls(true);
     unstyleGrid();
     const startNode = grid[startNodePosition.x][startNodePosition.y];
@@ -159,23 +166,12 @@ const Navbar = ({
         >
           Random
         </button>
-        <TypeButton
-          currentType="bfs"
-          type={algoType}
-          label="BFS"
-          setType={setAlgoType}
-        />
-        <TypeButton
-          currentType="dijkstras"
-          type={algoType}
-          label="Dijkstra's"
-          setType={setAlgoType}
-        />
-        <TypeButton
-          currentType="astar"
-          type={algoType}
-          label="Astar"
-          setType={setAlgoType}
+
+        <Select
+          options={algoOptions}
+          value={algoOptions.find((option) => option.value === algoType)}
+          placeholder="Select algo..."
+          onChange={(value) => setAlgoType(value.value)}
         />
 
         <button
