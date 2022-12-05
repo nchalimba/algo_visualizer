@@ -3,7 +3,14 @@ import { animate } from '../../utils/sorting/visualize';
 import sort from '../../utils/sorting/sort';
 import styles from '../../styles/sorting/Navbar.module.css';
 import SortingButton from './SortingButton';
+import Select from '../Select';
 
+const algoOptions = [
+  { label: 'Merge Sort', value: 'merge_sort' },
+  { label: 'Insertion Sort', value: 'insertion_sort' },
+  { label: 'Quick Sort', value: 'quick_sort' },
+  { label: 'Heap Sort', value: 'heap_sort' },
+];
 const Navbar = ({
   settings,
   setSettings,
@@ -22,6 +29,7 @@ const Navbar = ({
   };
 
   const handleSort = () => {
+    if (!settings.algoType) return;
     setDisableButtons(true);
     const { sortedArray, swapArray } = sort(settings.algoType, elements);
 
@@ -49,25 +57,15 @@ const Navbar = ({
         >
           New
         </button>
-        <SortingButton
-          type={'merge_sort'}
-          settings={settings}
-          setSettings={setSettings}
-        />
-        <SortingButton
-          type={'insertion_sort'}
-          settings={settings}
-          setSettings={setSettings}
-        />
-        <SortingButton
-          type={'quick_sort'}
-          settings={settings}
-          setSettings={setSettings}
-        />
-        <SortingButton
-          type={'heap_sort'}
-          settings={settings}
-          setSettings={setSettings}
+        <Select
+          options={algoOptions}
+          value={algoOptions.find(
+            (option) => option.value === settings.algoType
+          )}
+          placeholder="Select algo..."
+          onChange={(value) =>
+            setSettings((prev) => ({ ...prev, algoType: value.value }))
+          }
         />
         <button
           className="btn btn-primary"

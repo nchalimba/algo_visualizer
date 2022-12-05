@@ -4,7 +4,7 @@ import Navbar from '../components/sorting/Navbar';
 import SortingElements from '../components/sorting/SortingElements';
 
 const defaultSettings = {
-  algoType: 'merge_sort',
+  algoType: null,
   length: 25,
   delay: 5,
 };
