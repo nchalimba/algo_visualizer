@@ -1,0 +1,56 @@
+.container {
+  position: relative;
+
+  min-height: 1.5em;
+  min-width: 9em;
+  background-color: var(--primary);
+  color: white;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0.5em;
+  outline: none;
+  font-size: 0.9rem;
+  height: 2.5rem;
+}
+
+.arrow {
+  border: 0.25em solid transparent;
+  border-top-color: whitesmoke;
+  translate: 0 25%;
+}
+
+.arrow.up {
+  border-bottom-color: whitesmoke;
+  border-top-color: transparent;
+  translate: 0;
+}
+
+.options {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: none;
+  width: 100%;
+  left: 0;
+  top: 100%;
+  background-color: var(--primary);
+  z-index: 100;
+}
+
+.options.show {
+  display: block;
+}
+
+.option {
+  padding: 0.5em;
+  cursor: pointer;
+  transition: 200ms ease-in-out;
+}
+
+.option.highlighted {
+  background-color: var(--primary-hover);
+  transition: 200ms ease-in-out;
+}
