@@ -1,0 +1,115 @@
+import React, { useState } from "react";
+
+import { SortingSettings } from "../../types";
+
+import Slider from "../common/Slider";
+import Button from "../common/Button";
+import sort, { SortType } from "@/utils/sorting/sort";
+import { animate } from "@/utils/sorting/visualize";
+import Select from "../common/Select";
+import { FaBolt, FaPlay } from "react-icons/fa";
+
+interface NavbarProps {
+  settings: SortingSettings;
+  setSettings: React.Dispatch<React.SetStateAction<SortingSettings>>;
+  setForceUpdate: React.Dispatch<React.SetStateAction<boolean>>;
+  elements: number[];
+  setElements: React.Dispatch<React.SetStateAction<number[]>>;
+}
+
+const algoOptions = [
+  { label: "Merge Sort", value: "merge_sort" },
+  { label: "Insertion Sort", value: "insertion_sort" },
+  { label: "Quick Sort", value: "quick_sort" },
+  { label: "Heap Sort", value: "heap_sort" },
+];
+
+const Navbar: React.FC<NavbarProps> = ({
+  settings,
+  setSettings,
+  setForceUpdate,
+  elements,
+  setElements,
+}) => {
+  const [disableButtons, setDisableButtons] = useState(false);
+
+  const handleDelayChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSettings((prev) => ({ ...prev, delay: Number(event.target.value) }));
+  };
+
+  const handleLengthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSettings((prev) => ({
+      ...prev,
+      length: Number(event.target.value) * 5,
+    }));
+  };
+
+  const handleSort = () => {
+    if (!settings.algoType) return;
+    setDisableButtons(true);
+    const { sortedArray, swapArray } = sort(
+      settings.algoType as SortType,
+      elements
+    );
+
+    animate({
+      sortedArray,
+      swapArray,
+      setDisableButtons,
+      setElements,
+      delay: settings.delay,
+      isMerge: settings.algoType === "merge_sort",
+    });
+  };
+
+  const handleGenerateNew = () => {
+    setForceUpdate((prev) => !prev);
+  };
+
+  return (
+    <nav className="p-4 bg-gray-900 text-white flex flex-col lg:flex-row items-center justify-between w-full">
+      <div className="flex items-center space-x-4">
+        <Button onClick={handleGenerateNew} disabled={disableButtons}>
+          <div className="flex items-center gap-2">
+            <FaBolt className="text-xs" />
+            New
+          </div>
+        </Button>
+
+        <Select
+          options={algoOptions}
+          value={algoOptions.find(
+            (option) => option.value === settings.algoType
+          )}
+          placeholder="Select algo..."
+          onChange={(value) =>
+            setSettings((prev) => ({ ...prev, algoType: value.value }))
+          }
+        />
+        <Button onClick={handleSort} disabled={disableButtons}>
+          <div className="flex items-center gap-2">
+            <FaPlay className="text-xs" />
+            Start
+          </div>
+        </Button>
+      </div>
+
+      <div className="flex gap-8 mt-4 lg:mt-0">
+        <Slider
+          label={`Length: ${settings.length}`}
+          value={settings.length / 5}
+          onChange={handleLengthChange}
+          min={1}
+        />
+        <Slider
+          label={`Delay: ${settings.delay * 2} ms`}
+          value={settings.delay}
+          onChange={handleDelayChange}
+          min={1}
+        />
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;
