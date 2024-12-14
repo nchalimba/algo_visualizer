@@ -1,25 +1,42 @@
 import React, { useState } from "react";
 
-import { TreeTraversalSettings } from "../../types";
+import { TreeTraversalAlgo, TreeTraversalSettings } from "../../types";
 import Button from "../common/Button";
-import Select from "../common/Select";
+import Select, { Option } from "../common/Select";
 import Slider from "../common/Slider";
 import { FaPlay } from "react-icons/fa";
+import {
+  inorderDFS,
+  postorderDFS,
+  preorderDFS,
+} from "@/utils/treeTraversal/dfs";
+import { animateTree } from "@/utils/treeTraversal/visualize";
+import { bfs } from "@/utils/treeTraversal/bfs";
 
 interface NavbarProps {
   settings: TreeTraversalSettings;
   setSettings: React.Dispatch<React.SetStateAction<TreeTraversalSettings>>;
   setTree: React.Dispatch<React.SetStateAction<number[]>>;
   setVisitedArray: React.Dispatch<React.SetStateAction<number[]>>;
+  tree: number[];
 }
-
-const algoOptions = [
-  { label: "DFS", value: "DFS" },
-  { label: "BFS", value: "BFS" },
+const algoOptions: Option<TreeTraversalAlgo>[] = [
+  { label: "Inorder", value: "inorder" },
+  { label: "Postorder", value: "postorder" },
+  { label: "Preorder", value: "preorder" },
+  { label: "Level Order", value: "levelorder" },
 ];
+
+const treeTraversalMap = {
+  inorder: inorderDFS,
+  preorder: preorderDFS,
+  postorder: postorderDFS,
+  levelorder: bfs,
+};
 
 const Navbar: React.FC<NavbarProps> = ({
   settings,
+  tree,
   setSettings,
   setTree,
   setVisitedArray,
@@ -36,25 +53,35 @@ const Navbar: React.FC<NavbarProps> = ({
     setTree(Array.from({ length: newLength }, (_, index) => index));
   };
 
-  const handleAlgoChange = (value: { label: string; value: string }) => {
+  const handleAlgoChange = (value: {
+    label: string;
+    value: TreeTraversalAlgo;
+  }) => {
     setSettings((prev) => ({ ...prev, algo: value.value }));
   };
 
   const handleStart = () => {
+    if (!settings.algo) return;
     setDisableButtons(true);
-    setVisitedArray([]); // Reset visited nodes array for new traversal
-    // Add logic for traversal based on selected algorithm (DFS/BFS)
+    const visited: number[] = [];
+    treeTraversalMap[settings.algo](tree, visited, 0);
+    animateTree({
+      visited,
+      setVisitedArray,
+      setDisableButtons,
+      delay: settings.delay,
+    });
   };
 
   return (
-    <nav className="p-4 bg-gray-900 text-white flex flex-col lg:flex-row items-center justify-between w-full">
+    <nav className="p-4 bg-retroDark-200 text-white flex flex-col lg:flex-row lg:gap-4 items-center justify-between w-full">
       <div className="flex items-center space-x-4">
         {/* Select Algorithm */}
         <Select
           options={algoOptions}
           value={algoOptions.find((option) => option.value === settings.algo)}
           placeholder="Select algo..."
-          onChange={handleAlgoChange}
+          onChange={(value) => handleAlgoChange(value)}
         />
 
         {/* Start Button */}
@@ -73,6 +100,7 @@ const Navbar: React.FC<NavbarProps> = ({
           value={settings.length}
           onChange={handleLengthChange}
           min={3}
+          max={15}
         />
 
         {/* Delay Slider */}
@@ -81,6 +109,7 @@ const Navbar: React.FC<NavbarProps> = ({
           value={settings.delay}
           onChange={handleDelayChange}
           min={1}
+          max={1000}
         />
       </div>
     </nav>

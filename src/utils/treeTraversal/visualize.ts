@@ -13,16 +13,17 @@ export const animateTree = ({
 }: AnimateTreeProps): void => {
   setVisitedArray([]);
   visited.forEach((nodeNumber, index) => {
-    console.log("Hi");
     const node = document.getElementById(`node-${nodeNumber}`);
     if (!node) return;
 
     setTimeout(() => {
-      node.style.backgroundColor = "teal";
+      node.classList.remove("bg-retroDark-accent");
+      node.classList.add("bg-highlight");
       setVisitedArray((prev) => [...prev, nodeNumber]);
 
       setTimeout(() => {
-        node.style.backgroundColor = "white";
+        node.classList.remove("bg-highlight");
+        node.classList.add("bg-retroDark-accent");
         if (index === visited.length - 1) {
           setDisableButtons(false);
         }

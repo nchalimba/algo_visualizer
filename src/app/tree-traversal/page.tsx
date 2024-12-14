@@ -8,8 +8,8 @@ import { TreeTraversalSettings } from "../types";
 
 const TreeTraversalPage = () => {
   const [settings, setSettings] = useState<TreeTraversalSettings>({
-    algo: "DFS", // Default algorithm
-    delay: 500, // Default delay
+    algo: null,
+    delay: 200, // Default delay
     length: 3, // Default tree length
   });
 
@@ -27,7 +27,7 @@ const TreeTraversalPage = () => {
   }, [settings.length]);
 
   return (
-    <div className="min-h-screen bg-gray-800 text-white">
+    <div className="min-h-screen  text-white">
       <Head>
         <title>Tree Traversal Visualizer</title>
         <meta
@@ -37,6 +37,7 @@ const TreeTraversalPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar
+        tree={tree}
         settings={settings}
         setSettings={setSettings}
         setTree={setTree}
