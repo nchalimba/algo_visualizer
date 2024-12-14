@@ -40,7 +40,7 @@ const Navbar: React.FC<NavbarProps> = ({
   const handleLengthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSettings((prev) => ({
       ...prev,
-      length: Number(event.target.value) * 5,
+      length: Number(event.target.value),
     }));
   };
 
@@ -67,7 +67,7 @@ const Navbar: React.FC<NavbarProps> = ({
   };
 
   return (
-    <nav className="p-4 bg-gray-900 text-white flex flex-col lg:flex-row items-center justify-between w-full">
+    <nav className="p-4 bg-gray-900 text-white flex flex-col lg:flex-row lg:gap-4 items-center justify-between w-full">
       <div className="flex items-center space-x-4">
         <Button onClick={handleGenerateNew} disabled={disableButtons}>
           <div className="flex items-center gap-2">
@@ -97,15 +97,17 @@ const Navbar: React.FC<NavbarProps> = ({
       <div className="flex gap-8 mt-4 lg:mt-0">
         <Slider
           label={`Length: ${settings.length}`}
-          value={settings.length / 5}
+          value={settings.length}
           onChange={handleLengthChange}
-          min={1}
+          min={5}
+          max={500}
         />
         <Slider
           label={`Delay: ${settings.delay * 2} ms`}
           value={settings.delay}
           onChange={handleDelayChange}
           min={1}
+          max={100}
         />
       </div>
     </nav>

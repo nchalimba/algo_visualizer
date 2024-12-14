@@ -9,16 +9,7 @@ interface DistMap {
   };
 }
 
-interface DijkstraResult {
-  path: Node[];
-  visitedNodes: Node[];
-}
-
-export const dijkstras = (
-  startNode: Node,
-  endNode: Node,
-  grid: Node[][]
-): DijkstraResult => {
+export const dijkstras = (startNode: Node, endNode: Node, grid: Node[][]) => {
   /*
     Output: {node: {prev, dist}}
   */

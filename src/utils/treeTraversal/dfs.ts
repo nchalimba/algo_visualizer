@@ -1,4 +1,4 @@
-type Tree = (number | null)[];
+import { Tree } from "@/app/types";
 
 // Generic DFS traversal
 export const dfs = (

@@ -1,23 +1,30 @@
 import React from "react";
+import { clsx } from "clsx";
 
 interface ButtonProps {
   children: React.ReactNode;
   onClick: () => void;
   disabled?: boolean;
+  active?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
   children,
   onClick,
   disabled = false,
-}) => (
-  <button
-    onClick={onClick}
-    disabled={disabled}
-    className="px-4 py-2 bg-retroDark-accent text-white rounded hover:bg-retroDark-accent-hover disabled:bg-gray-500 transition duration-300 ease-in-out"
-  >
-    {children}
-  </button>
-);
+  active = false,
+}) => {
+  const buttonClasses = clsx(
+    "px-4 py-2 bg-retroDark-accent text-white rounded hover:bg-retroDark-accent-hover disabled:bg-gray-500 transition duration-300 ease-in-out",
+    {
+      "bg-retroDark-accent-active": active,
+    }
+  );
+  return (
+    <button onClick={onClick} disabled={disabled} className={buttonClasses}>
+      {children}
+    </button>
+  );
+};
 
 export default Button;

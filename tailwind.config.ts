@@ -11,6 +11,7 @@ export default {
     "bg-retroDark-accent",
     "peer-checked:bg-retroDark-accent",
     "bg-retroDark-300",
+    "bg-retroDark-400",
     "rounded-lg",
     "peer",
   ], // Ensure Tailwind compiles these
@@ -26,6 +27,7 @@ export default {
           500: "#6071a1", // Retro blue, a bit muted but still noticeable
           accent: "#7189FF", // Neon blue accent (same as before for that Pac-Man glow)
           "accent-hover": "#5C74E6", // Slightly darker neon blue for hover effect
+          "accent-active": "#4B63E1", // Even darker neon blue for active state
         },
         retroText: {
           light: "#e0e0e0", // Light gray text for good contrast
