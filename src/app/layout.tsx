@@ -3,16 +3,8 @@ import Link from "next/link";
 import { Press_Start_2P, Source_Code_Pro } from "next/font/google";
 import "./globals.css";
 import { useState } from "react";
-import {
-  FaBars,
-  FaHome,
-  FaChartBar,
-  FaTree,
-  FaCog,
-  FaSlidersH,
-  FaMapSigns,
-} from "react-icons/fa";
-import { FaXmark } from "react-icons/fa6";
+import { FaBars, FaSitemap, FaRoute, FaSignal } from "react-icons/fa";
+import { FaHouse, FaXmark } from "react-icons/fa6";
 
 const sourceCodePro = Source_Code_Pro({
   subsets: ["latin"],
@@ -34,10 +26,10 @@ export default function RootLayout({
 
   // Sidebar menu configuration
   const menuItems = [
-    { name: "Home", href: "/", icon: FaHome },
-    { name: "Sorting", href: "/sorting", icon: FaSlidersH }, // Updated to reflect modern sliders
-    { name: "Pathfinding", href: "/pathfinding", icon: FaMapSigns }, // More fitting for pathfinding (map-like)
-    { name: "Tree Traversal", href: "/tree-traversal", icon: FaTree }, // Tree traversal stays, still appropriate
+    { name: "Home", href: "/", icon: FaHouse },
+    { name: "Sorting", href: "/sorting", icon: FaSignal }, // Updated to reflect modern sliders
+    { name: "Pathfinding", href: "/pathfinding", icon: FaRoute }, // More fitting for pathfinding (map-like)
+    { name: "Tree Traversal", href: "/tree-traversal", icon: FaSitemap }, // Tree traversal stays, still appropriate
   ];
 
   return (

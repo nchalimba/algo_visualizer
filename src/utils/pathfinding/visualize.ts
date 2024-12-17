@@ -1,100 +1,36 @@
-import { PathNode } from "@/app/types";
 import { Node } from "./utils";
+import { sleep } from "../utils";
 
-type SetDisableControls = (disabled: boolean) => void;
-
-interface VisualizeParams {
+type VisualizeParams = {
   path: Node[];
-  setGrid: React.Dispatch<React.SetStateAction<PathNode[][]>>;
   visitedNodes: Node[];
   startNode: Node;
   endNode: Node;
-  setDisableControls: SetDisableControls;
   delay: number;
-}
-
-const updateNode = (
-  x: number,
-  y: number,
-  setGrid: React.Dispatch<React.SetStateAction<PathNode[][]>>,
-  type: "visited" | "path"
-) => {
-  setGrid((prevGrid) => {
-    const newGrid = [...prevGrid];
-    const node = { ...newGrid[x][y] }; // Clone the node
-    if (type === "visited") node.isVisited = true;
-    else if (type === "path") node.isPath = true;
-    newGrid[x][y] = node;
-    return newGrid;
-  });
+  updateNode: (x: number, y: number, type: "visited" | "path") => void;
 };
 
-export const visualizePath = ({
+export const visualizePath = async ({
   path,
-  setGrid,
   visitedNodes,
   startNode,
   endNode,
-  setDisableControls,
   delay,
-}: VisualizeParams): void => {
-  // Disable controls during animation
-  setDisableControls(true);
-  visitedNodes.forEach((node, index) => {
-    const element = document.getElementById(`grid-node-${node.x}-${node.y}`);
-    if (!element || node === endNode) return;
+  updateNode,
+}: VisualizeParams): Promise<void> => {
+  for (let i = 0; i < visitedNodes.length; i++) {
+    const node = visitedNodes[i];
+    if (node === endNode) continue;
+    updateNode(node.x, node.y, "visited");
+    if (delay) await sleep(delay);
+    if (i !== visitedNodes.length - 2) continue;
 
-    setTimeout(() => {
-      updateNode(node.x, node.y, setGrid, "visited");
+    if (path.length === 0) return;
 
-      // Finalize animation of visited nodes
-      if (index === visitedNodes.length - 2) {
-        visualizeShortestPath({
-          path,
-          setGrid,
-          startNode,
-          endNode,
-          setDisableControls,
-          delay,
-        });
-      }
-    }, delay * index);
-  });
-};
-
-interface VisualizeShortestPathParams {
-  path: Node[];
-  startNode: Node;
-  endNode: Node;
-  setGrid: React.Dispatch<React.SetStateAction<PathNode[][]>>;
-  setDisableControls: SetDisableControls;
-  delay: number;
-}
-
-const visualizeShortestPath = ({
-  path,
-  setGrid,
-  startNode,
-  endNode,
-  setDisableControls,
-  delay,
-}: VisualizeShortestPathParams): void => {
-  if (path.length === 0) {
-    setDisableControls(false);
-    return;
+    for (const node of path) {
+      if (node === startNode || node === endNode) continue;
+      updateNode(node.x, node.y, "path");
+      if (delay) await sleep(delay);
+    }
   }
-
-  path.forEach((node, index) => {
-    const element = document.getElementById(`grid-node-${node.x}-${node.y}`);
-    if (!element || node === endNode) return;
-    setTimeout(() => {
-      // Animate shortest path nodes
-      updateNode(node.x, node.y, setGrid, "path");
-
-      // Finalize animation of shortest path
-      if (index === path.length - 1) {
-        setDisableControls(false);
-      }
-    }, delay * index);
-  });
 };

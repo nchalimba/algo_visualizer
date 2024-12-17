@@ -88,7 +88,7 @@ const Navbar: React.FC<NavbarProps> = ({
         <Button onClick={handleStart} disabled={disableButtons}>
           <div className="flex items-center gap-2">
             <FaPlay className="text-xs" />
-            Start
+            <span className="hidden md:inline">Start</span>
           </div>
         </Button>
       </div>

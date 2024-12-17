@@ -24,7 +24,7 @@ const initializeGrid = (
   rows: number,
   cols: number
 ) => {
-  const newGrid: PathNode[][] = Array.from({ length: rows }, (_, i) =>
+  return Array.from({ length: rows }, (_, i) =>
     Array.from({ length: cols }, (_, j) => ({
       x: i,
       y: j,
@@ -38,7 +38,6 @@ const initializeGrid = (
       weight: 1,
     }))
   );
-  return newGrid;
 };
 
 const PathfindingPage = () => {
@@ -62,12 +61,21 @@ const PathfindingPage = () => {
     y: DEFAULT_COLS - 1,
   });
 
+  const [isVisualizationActive, setIsVisualizationActive] = useState(false);
+
+  // Reinitialize grid on settings change
   useEffect(() => {
     const newGrid = initializeGrid(
       settings.randomizeWalls,
       settings.rows,
       settings.cols
     );
+    setIsVisualizationActive(false);
+    setStartNodePosition({ x: 0, y: 0 });
+    setEndNodePosition({
+      x: settings.rows - 1,
+      y: settings.cols - 1,
+    });
     setGrid(newGrid);
   }, [
     settings.randomizeWalls,
@@ -77,37 +85,89 @@ const PathfindingPage = () => {
   ]);
 
   const onGenerateMaze = () => {
+    setIsVisualizationActive(false);
     const newGrid = generateMaze(grid, startNodePosition, endNodePosition);
     setGrid(newGrid);
   };
 
-  const onStart = () => {
+  const updateNode = (x: number, y: number, type: "visited" | "path") => {
+    setGrid((prevGrid) => {
+      const newGrid = [...prevGrid];
+      const node = { ...newGrid[x][y] };
+      if (type === "visited") node.isVisited = true;
+      else if (type === "path") node.isPath = true;
+      newGrid[x][y] = node;
+      return newGrid;
+    });
+  };
+
+  const removeVisitedAndPath = () => {
+    setGrid((prevGrid) => {
+      const newGrid = prevGrid.map((row) =>
+        row.map((node) => ({
+          ...node,
+          isVisited: false,
+          isPath: false,
+        }))
+      );
+      return newGrid;
+    });
+  };
+
+  const visualizePathForCurrentState = async () => {
     if (!settings.algo) return;
     const algo = algoMap[settings.algo];
     const startNode = grid[startNodePosition.x][startNodePosition.y];
     const endNode = grid[endNodePosition.x][endNodePosition.y];
     const { path, visitedNodes } = algo(startNode, endNode, grid);
-    visualizePath({
+
+    // Visualize path without delay
+    await visualizePath({
       path,
-      setGrid,
       visitedNodes,
       startNode,
       endNode,
-      setDisableControls,
+      updateNode,
+      delay: 0,
+    });
+  };
+
+  // Re-visualize path on start/end node movement only if a visualization was started
+  useEffect(() => {
+    if (!isVisualizationActive) return; // Do nothing if no visualization has been started
+    removeVisitedAndPath(); // Clear previous visuals
+    visualizePathForCurrentState();
+  }, [startNodePosition, endNodePosition]);
+
+  const onStart = async () => {
+    if (!settings.algo) return;
+    const algo = algoMap[settings.algo];
+    removeVisitedAndPath();
+    const startNode = grid[startNodePosition.x][startNodePosition.y];
+    const endNode = grid[endNodePosition.x][endNodePosition.y];
+    const { path, visitedNodes } = algo(startNode, endNode, grid);
+
+    setDisableControls(true);
+    setIsVisualizationActive(true); // Mark visualization as started
+    await visualizePath({
+      path,
+      visitedNodes,
+      startNode,
+      endNode,
+      updateNode,
       delay: settings.delay,
     });
     setDisableControls(false);
   };
 
   return (
-    <div className="flex flex-col items-center min-h-screen  text-gray-200">
+    <div className="flex flex-col items-center min-h-screen text-gray-200">
       <Navbar
         onGenerateMaze={onGenerateMaze}
         onStart={onStart}
         settings={settings}
         setSettings={setSettings}
         disableControls={disableControls}
-        setDisableControls={setDisableControls}
       />
       <div className="mt-6">
         <Grid

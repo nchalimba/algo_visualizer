@@ -4,10 +4,10 @@ import Select, { Option } from "../common/Select";
 import Slider from "../common/Slider";
 import Button from "../common/Button";
 import { PathFindingAlgo, PathFindingSettings } from "@/app/types";
+import { FaBolt, FaPlay, FaTrash } from "react-icons/fa";
 
 interface NavbarProps {
   disableControls: boolean;
-  setDisableControls: React.Dispatch<React.SetStateAction<boolean>>;
   settings: PathFindingSettings;
   setSettings: React.Dispatch<React.SetStateAction<PathFindingSettings>>;
   onGenerateMaze: () => void;
@@ -24,7 +24,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   settings,
   setSettings,
   disableControls,
-  setDisableControls,
   onGenerateMaze,
   onStart,
 }) => {
@@ -64,7 +63,10 @@ export const Navbar: React.FC<NavbarProps> = ({
           }}
           disabled={disableControls}
         >
-          Clear
+          <div className="flex items-center gap-2">
+            <FaTrash />
+            <span className="hidden md:inline">Clear</span>
+          </div>
         </Button>
         <Button
           onClick={() => {
@@ -72,7 +74,10 @@ export const Navbar: React.FC<NavbarProps> = ({
           }}
           disabled={disableControls}
         >
-          Random
+          <div className="flex items-center gap-2">
+            <FaBolt />
+            <span className="hidden md:inline">Maze</span>
+          </div>
         </Button>
         <div className="flex-grow">
           <Select
@@ -87,7 +92,10 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
 
         <Button onClick={onStart} disabled={disableControls || !settings.algo}>
-          Start
+          <div className="flex items-center gap-2">
+            <FaPlay />
+            <span className="hidden md:inline">Start</span>
+          </div>
         </Button>
       </div>
 
@@ -95,7 +103,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         <Slider
           label={`Rows: ${settings.rows}`}
           min={2}
-          max={20}
+          max={15}
           value={settings.rows}
           onChange={handleRowChange}
           disabled={disableControls}
@@ -103,7 +111,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         <Slider
           label={`Cols: ${settings.cols}`}
           min={2}
-          max={20}
+          max={15}
           value={settings.cols}
           onChange={handleColChange}
           disabled={disableControls}
@@ -111,7 +119,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         <Slider
           label={`Delay: ${settings.delay} ms`}
           min={1}
-          max={500}
+          max={200}
           value={settings.delay}
           onChange={handleDelayChange}
           disabled={disableControls}

@@ -1,7 +1,6 @@
 import { MinHeap } from "./minHeap";
 import { getNeighbours, getNodeKey, Node } from "./utils";
 
-// Define types for the distMap and return values
 interface DistMap {
   [key: string]: {
     dist: number;
@@ -9,20 +8,19 @@ interface DistMap {
   };
 }
 
-export const dijkstras = (startNode: Node, endNode: Node, grid: Node[][]) => {
-  /*
-    Output: {node: {prev, dist}}
-  */
+interface HeapNode {
+  node: Node;
+  cost: number; // Distance from the start node
+  prev: Node | null;
+}
 
+export const dijkstras = (startNode: Node, endNode: Node, grid: Node[][]) => {
   const distMap: DistMap = {};
   const visitedNodes: Node[] = [];
-  const visitedSet = new Set<Node>();
-  const priorityQueue = new MinHeap<{
-    node: Node;
-    cost: number;
-    prev: Node | null;
-  }>("cost");
+  const visitedSet = new Set<string>(); // Use strings (keys) for tracking
+  const priorityQueue = new MinHeap<HeapNode>("cost");
 
+  // Initialize priority queue with the start node
   priorityQueue.add({
     node: startNode,
     cost: 0,
@@ -30,28 +28,36 @@ export const dijkstras = (startNode: Node, endNode: Node, grid: Node[][]) => {
   });
 
   while (priorityQueue.size() > 0) {
-    priorityQueue.remove();
-    const output = priorityQueue.remove();
-    if (!output) break;
-    const { node, cost, prev } = output;
-    if (visitedSet.has(node) || node.isWall) continue;
-    visitedNodes.push(node);
-    visitedSet.add(node);
+    const current = priorityQueue.remove();
+    if (!current) break;
+
+    const { node, cost, prev } = current;
 
     const nodeKey = getNodeKey(node);
+    if (visitedSet.has(nodeKey) || node.isWall) continue;
+
+    // Mark as visited
+    visitedNodes.push(node);
+    visitedSet.add(nodeKey);
+
+    // Update distance map
     if (!distMap[nodeKey] || distMap[nodeKey].dist > cost) {
       distMap[nodeKey] = { dist: cost, prev };
     }
 
+    // If end node is reached, terminate early
     if (node === endNode) break;
-    const neighbours = getNeighbours(node.x, node.y, grid);
-    for (let i = 0; i < neighbours.length; i++) {
-      const neighbour = neighbours[i];
-      priorityQueue.add({
-        node: neighbour,
-        cost: cost + neighbour.weight,
-        prev: node,
-      });
+
+    // Process neighbors
+    const neighbors = getNeighbours(node.x, node.y, grid);
+    for (const neighbor of neighbors) {
+      if (!visitedSet.has(getNodeKey(neighbor)) && !neighbor.isWall) {
+        priorityQueue.add({
+          node: neighbor,
+          cost: cost + neighbor.weight,
+          prev: node,
+        });
+      }
     }
   }
 
@@ -68,5 +74,5 @@ const buildPath = (distMap: DistMap, endNode: Node): Node[] => {
     path.push(currentNode);
     currentNode = distMap[getNodeKey(currentNode)].prev;
   }
-  return path.reverse(); // Reverse the path to start from the startNode
+  return path.reverse();
 };

@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { Node } from "./Node";
+import Toolbar from "./Toolbar";
 import { PathNode } from "@/app/types";
-import Button from "../common/Button";
-import { FaHand } from "react-icons/fa6";
-import { FaEraser, FaPen } from "react-icons/fa";
 
 interface GridProps {
   grid: PathNode[][];
@@ -32,6 +30,7 @@ const Grid: React.FC<GridProps> = ({
     "move" | "draw" | "erase" | null
   >("move");
   const [isMouseDown, setIsMouseDown] = useState(false);
+  const [movingNode, setMovingNode] = useState<"start" | "end" | null>(null);
 
   const handleNodeInteraction = (
     row: number,
@@ -44,30 +43,27 @@ const Grid: React.FC<GridProps> = ({
     const node = updatedGrid[row][col];
 
     if (activeMode === "move") {
-      // Move start or end node
-      if (node.isStart || node.isEnd) return;
-      if (isMouseDown) {
-        console.log("Hey");
-        if (startNodePosition.x === row && startNodePosition.y === col) {
-          console.log("hey1");
-          updatedGrid[startNodePosition.x][startNodePosition.y].isStart = false;
-          updatedGrid[row][col].isStart = true;
-          setStartNodePosition({ x: row, y: col });
-        } else if (endNodePosition.x === row && endNodePosition.y === col) {
-          console.log("hey2");
-          updatedGrid[endNodePosition.x][endNodePosition.y].isEnd = false;
-          updatedGrid[row][col].isEnd = true;
-          setEndNodePosition({ x: row, y: col });
-        }
+      if (!isMouseDown) return;
+
+      if (movingNode === "start") {
+        updatedGrid[startNodePosition.x][startNodePosition.y].isStart = false;
+        updatedGrid[row][col].isStart = true;
+        setStartNodePosition({ x: row, y: col });
+      } else if (movingNode === "end") {
+        updatedGrid[endNodePosition.x][endNodePosition.y].isEnd = false;
+        updatedGrid[row][col].isEnd = true;
+        setEndNodePosition({ x: row, y: col });
+      } else if (node.isStart) {
+        setMovingNode("start");
+      } else if (node.isEnd) {
+        setMovingNode("end");
       }
     } else if (activeMode === "draw") {
-      // Draw wall
-      if (isMouseDown && !node.isStart && !node.isEnd) {
+      if (!node.isStart && !node.isEnd) {
         node.isWall = true;
       }
     } else if (activeMode === "erase") {
-      // Erase wall
-      if (isMouseDown && !node.isStart && !node.isEnd) {
+      if (!node.isStart && !node.isEnd) {
         node.isWall = false;
       }
     }
@@ -77,35 +73,23 @@ const Grid: React.FC<GridProps> = ({
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex justify-center gap-6">
-        <Button
-          active={activeMode === "move"}
-          disabled={disableControls}
-          onClick={() => setActiveMode("move")}
-        >
-          <FaHand />
-        </Button>
-        <Button
-          active={activeMode === "draw"}
-          disabled={disableControls}
-          onClick={() => setActiveMode("draw")}
-        >
-          <FaPen />
-        </Button>
-        <Button
-          active={activeMode === "erase"}
-          disabled={disableControls}
-          onClick={() => setActiveMode("erase")}
-        >
-          <FaEraser />
-        </Button>
-      </div>
+      <Toolbar
+        activeMode={activeMode}
+        setActiveMode={setActiveMode}
+        disableControls={disableControls}
+      />
       <div
         className="grid"
         style={{ gridTemplateColumns: `repeat(${grid[0]?.length || 1}, 1fr)` }}
         onMouseDown={() => setIsMouseDown(true)}
-        onMouseUp={() => setIsMouseDown(false)}
-        onMouseLeave={() => setIsMouseDown(false)}
+        onMouseUp={() => {
+          setIsMouseDown(false);
+          setMovingNode(null);
+        }}
+        onMouseLeave={() => {
+          setIsMouseDown(false);
+          setMovingNode(null);
+        }}
       >
         {grid.map((row, rowIndex) =>
           row.map((node, colIndex) => (

@@ -15,12 +15,15 @@ export const Node: React.FC<PathNode & { isMovable?: boolean; id: string }> = ({
   const nodeClasses = clsx(
     "w-10 h-10 border rounded-lg border-retroDark-100 flex items-center justify-center",
     {
-      "bg-retroDark-accent": isStart || isPath,
-      "bg-red-600": isEnd,
-      "bg-retroDark-400": isWall,
-      "bg-retroDark-300": !isStart && !isEnd && !isWall,
-      "cursor-pointer": isMovable && (isStart || isEnd),
-      "bg-gray-100": isVisited && !isStart && !isEnd && !isPath,
+      "bg-retroDark-400": isWall, // Wall styles take precedence
+      "bg-retroDark-accent": !isWall && (isStart || isPath), // Path and start styles
+      "bg-red-600": !isWall && isEnd, // End node
+      "bg-gray-100": !isWall && isVisited && !isStart && !isEnd && !isPath, // Visited node
+      "bg-retroDark-300":
+        !isWall && !isStart && !isEnd && !isPath && !isVisited, // Default node
+    },
+    {
+      "cursor-pointer": isMovable && (isStart || isEnd), // Allow movement for start/end
     }
   );
 

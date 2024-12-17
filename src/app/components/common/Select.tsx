@@ -1,3 +1,4 @@
+import { sleep } from "@/utils/utils";
 import React, { useState, useEffect } from "react";
 
 export interface Option<T = string> {
@@ -23,8 +24,9 @@ const Select = <T,>({
   const [isOpen, setIsOpen] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(0);
 
-  const selectOption = (option: Option<T>) => {
+  const selectOption = async (option: Option<T>) => {
     if (option !== value) onChange(option);
+    await sleep(100);
     setIsOpen(false);
   };
 
@@ -56,7 +58,7 @@ const Select = <T,>({
           {options.map((option, index) => (
             <li
               key={String(option.value)}
-              className={`px-4 py-2 ${
+              className={`px-4 py-2 cursor-pointer ${
                 index === highlightedIndex ? "bg-retroDark-accent" : ""
               }`}
               onClick={() => selectOption(option)}

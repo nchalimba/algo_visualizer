@@ -72,7 +72,7 @@ const Navbar: React.FC<NavbarProps> = ({
         <Button onClick={handleGenerateNew} disabled={disableButtons}>
           <div className="flex items-center gap-2">
             <FaBolt className="text-xs" />
-            New
+            <span className="hidden md:inline">New</span>
           </div>
         </Button>
 
@@ -89,7 +89,7 @@ const Navbar: React.FC<NavbarProps> = ({
         <Button onClick={handleSort} disabled={disableButtons}>
           <div className="flex items-center gap-2">
             <FaPlay className="text-xs" />
-            Start
+            <span className="hidden md:inline">Start</span>
           </div>
         </Button>
       </div>

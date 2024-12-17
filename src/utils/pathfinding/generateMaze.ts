@@ -19,6 +19,8 @@ export const generateMaze = (
       } else {
         node.isWall = true;
       }
+      node.isPath = false;
+      node.isVisited = false;
     });
   });
 
