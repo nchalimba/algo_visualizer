@@ -3,7 +3,7 @@ import { Node } from "./Node";
 import Toolbar from "./Toolbar";
 import { PathNode } from "@/app/types";
 
-interface GridProps {
+type Props = {
   grid: PathNode[][];
   setGrid: React.Dispatch<React.SetStateAction<PathNode[][]>>;
   disableControls: boolean;
@@ -15,9 +15,9 @@ interface GridProps {
   setEndNodePosition: React.Dispatch<
     React.SetStateAction<{ x: number; y: number }>
   >;
-}
+};
 
-const Grid: React.FC<GridProps> = ({
+const Grid: React.FC<Props> = ({
   grid,
   setGrid,
   startNodePosition,

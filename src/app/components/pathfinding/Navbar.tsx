@@ -1,26 +1,30 @@
 // Components/Navbar.tsx
 import React, { useState } from "react";
-import Select, { Option } from "../common/Select";
+import Select from "../common/Select";
 import Slider from "../common/Slider";
 import Button from "../common/Button";
-import { PathFindingAlgo, PathFindingSettings } from "@/app/types";
+import {
+  PathFindingAlgo,
+  PathFindingSettings,
+  SelectOption,
+} from "@/app/types";
 import { FaBolt, FaPlay, FaTrash } from "react-icons/fa";
 
-interface NavbarProps {
+type Props = {
   disableControls: boolean;
   settings: PathFindingSettings;
   setSettings: React.Dispatch<React.SetStateAction<PathFindingSettings>>;
   onGenerateMaze: () => void;
   onStart: () => void;
-}
+};
 
-const algorithmOptions: Option<PathFindingAlgo>[] = [
+const algorithmOptions: SelectOption<PathFindingAlgo>[] = [
   { label: "Breadth-First Search", value: "bfs" },
   { label: "Dijkstra's Algorithm", value: "dijkstra" },
   { label: "A* Search", value: "astar" },
 ];
 
-export const Navbar: React.FC<NavbarProps> = ({
+export const Navbar: React.FC<Props> = ({
   settings,
   setSettings,
   disableControls,

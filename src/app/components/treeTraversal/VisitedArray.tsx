@@ -1,10 +1,10 @@
 import React from "react";
 
-interface VisitedArrayProps {
+type Props = {
   array: number[];
-}
+};
 
-const VisitedArray: React.FC<VisitedArrayProps> = ({ array }) => {
+const VisitedArray: React.FC<Props> = ({ array }) => {
   return (
     <div className="mt-4 bg-retroDark-200 p-4 rounded shadow-lg">
       <h3 className="text-xl font-bold mb-3 text-retroText-light">

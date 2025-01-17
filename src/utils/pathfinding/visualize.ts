@@ -1,11 +1,11 @@
-import { Node } from "./utils";
 import { sleep } from "../utils";
+import { PathNode } from "@/app/types";
 
-type VisualizeParams = {
-  path: Node[];
-  visitedNodes: Node[];
-  startNode: Node;
-  endNode: Node;
+type Props = {
+  path: PathNode[];
+  visitedNodes: PathNode[];
+  startNode: PathNode;
+  endNode: PathNode;
   delay: number;
   updateNode: (x: number, y: number, type: "visited" | "path") => void;
 };
@@ -17,7 +17,7 @@ export const visualizePath = async ({
   endNode,
   delay,
   updateNode,
-}: VisualizeParams): Promise<void> => {
+}: Props): Promise<void> => {
   for (let i = 0; i < visitedNodes.length; i++) {
     const node = visitedNodes[i];
     if (node === endNode) continue;

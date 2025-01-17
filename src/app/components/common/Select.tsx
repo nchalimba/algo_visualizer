@@ -1,18 +1,14 @@
+import { SelectOption } from "@/app/types";
 import { sleep } from "@/utils/utils";
 import React, { useState, useEffect } from "react";
 
-export interface Option<T = string> {
-  label: string;
-  value: T;
-}
-
-interface SelectProps<T = string> {
-  value: Option<T> | undefined;
-  options: Option<T>[];
-  onChange: (value: Option<T>) => void;
+type Props<T = string> = {
+  value: SelectOption<T> | undefined;
+  options: SelectOption<T>[];
+  onChange: (value: SelectOption<T>) => void;
   placeholder: string;
   disabled?: boolean;
-}
+};
 
 const Select = <T,>({
   value,
@@ -20,11 +16,11 @@ const Select = <T,>({
   onChange,
   placeholder,
   disabled,
-}: SelectProps<T>) => {
+}: Props<T>) => {
   const [isOpen, setIsOpen] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(0);
 
-  const selectOption = async (option: Option<T>) => {
+  const selectOption = async (option: SelectOption<T>) => {
     if (option !== value) onChange(option);
     await sleep(100);
     setIsOpen(false);

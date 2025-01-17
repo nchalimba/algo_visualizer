@@ -2,17 +2,7 @@ import { insertionSort } from "./insertionSort";
 import { mergeSort } from "./mergeSort";
 import { quickSort } from "./quickSort";
 import { heapSort } from "./heapSort";
-
-export type SortType =
-  | "insertion_sort"
-  | "merge_sort"
-  | "quick_sort"
-  | "heap_sort";
-
-interface SortResult {
-  sortedArray: number[];
-  swapArray: [number, number][];
-}
+import { SortResult, SortType } from "@/app/types";
 
 const sortMap: Record<
   SortType,

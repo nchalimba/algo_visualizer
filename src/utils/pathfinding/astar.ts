@@ -1,20 +1,15 @@
+import { HeapNode, PathNode } from "@/app/types";
 import { MinHeap } from "./minHeap";
-import { getNeighbours, getNodeKey, Node } from "./utils";
-
-interface HeapNode {
-  node: Node;
-  cost: number; // g(n) + h(n)
-  prev: Node | null;
-}
+import { getNeighbours, getNodeKey } from "./utils";
 
 export const astar = (
-  startNode: Node,
-  endNode: Node,
-  grid: Node[][]
-): { path: Node[]; visitedNodes: Node[] } => {
-  const distMap: Record<string, { dist: number; prev: Node | null }> = {};
-  const visitedNodes: Node[] = [];
-  const visitedSet = new Set<Node>();
+  startNode: PathNode,
+  endNode: PathNode,
+  grid: PathNode[][]
+): { path: PathNode[]; visitedNodes: PathNode[] } => {
+  const distMap: Record<string, { dist: number; prev: PathNode | null }> = {};
+  const visitedNodes: PathNode[] = [];
+  const visitedSet = new Set<PathNode>();
   const priorityQueue = new MinHeap<HeapNode>("cost");
 
   // Add the starting node to the priority queue
@@ -70,16 +65,16 @@ export const astar = (
 
 // Function to reconstruct the path from the distance map
 const buildPath = (
-  distMap: Record<string, { dist: number; prev: Node | null }>,
-  endNode: Node
-): Node[] => {
-  const path: Node[] = [];
+  distMap: Record<string, { dist: number; prev: PathNode | null }>,
+  endNode: PathNode
+): PathNode[] => {
+  const path: PathNode[] = [];
   const endKey = getNodeKey(endNode);
 
   // If the end node is not in the distance map, there's no path
   if (!(endKey in distMap)) return path;
 
-  let currentNode: Node | null = endNode;
+  let currentNode: PathNode | null = endNode;
 
   while (currentNode) {
     path.unshift(currentNode); // Prepend nodes to the path
@@ -91,7 +86,7 @@ const buildPath = (
 };
 
 // Heuristic function: Euclidean distance
-const getHeuristic = (node: Node, endNode: Node): number => {
+const getHeuristic = (node: PathNode, endNode: PathNode): number => {
   const xDistance = Math.abs(endNode.x - node.x);
   const yDistance = Math.abs(endNode.y - node.y);
   return Math.sqrt(xDistance ** 2 + yDistance ** 2); // Euclidean distance

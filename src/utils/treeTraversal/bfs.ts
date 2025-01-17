@@ -1,4 +1,4 @@
-type Tree = (number | null)[];
+import { Tree } from "@/app/types";
 
 export const bfs = (tree: Tree, visited: number[]): void => {
   const queue: number[] = [0]; // Start from the root (index 0)

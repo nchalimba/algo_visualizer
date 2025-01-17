@@ -1,17 +1,11 @@
-// Define types for Node if not already defined
-export interface Node {
-  x: number;
-  y: number;
-  weight: number;
-  isWall: boolean;
-}
+import { PathNode } from "@/app/types";
 
 export const getNeighbours = (
   row: number,
   col: number,
-  grid: Node[][]
-): Node[] => {
-  const neighbours: Node[] = [];
+  grid: PathNode[][]
+): PathNode[] => {
+  const neighbours: PathNode[] = [];
   if (row > 0) neighbours.push(grid[row - 1][col]);
   if (row < grid.length - 1) neighbours.push(grid[row + 1][col]);
   if (col > 0) neighbours.push(grid[row][col - 1]);
@@ -19,6 +13,6 @@ export const getNeighbours = (
   return neighbours;
 };
 
-export const getNodeKey = (node: Node): string => {
+export const getNodeKey = (node: PathNode): string => {
   return `${node.x};${node.y}`;
 };

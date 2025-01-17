@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class MinHeap<T extends Record<string, any>> {
   private keyname: keyof T;
   private data: T[];
@@ -25,7 +26,7 @@ export class MinHeap<T extends Record<string, any>> {
     return response;
   }
 
-  update(searchKey: string, searchValue: any, object: T): void {
+  update(searchKey: string, searchValue: object, object: T): void {
     let index = -1;
     for (let i = 0; i < this.data.length; i++) {
       if (this.data[i][searchKey] === searchValue) {

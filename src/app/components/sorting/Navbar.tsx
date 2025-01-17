@@ -1,21 +1,21 @@
 import React, { useState } from "react";
 
-import { SortingSettings } from "../../types";
+import { SortingSettings, SortType } from "../../types";
 
 import Slider from "../common/Slider";
 import Button from "../common/Button";
-import sort, { SortType } from "@/utils/sorting/sort";
+import sort from "@/utils/sorting/sort";
 import { animate } from "@/utils/sorting/visualize";
 import Select from "../common/Select";
 import { FaBolt, FaPlay } from "react-icons/fa";
 
-interface NavbarProps {
+type Props = {
   settings: SortingSettings;
   setSettings: React.Dispatch<React.SetStateAction<SortingSettings>>;
   setForceUpdate: React.Dispatch<React.SetStateAction<boolean>>;
   elements: number[];
   setElements: React.Dispatch<React.SetStateAction<number[]>>;
-}
+};
 
 const algoOptions = [
   { label: "Merge Sort", value: "merge_sort" },
@@ -24,7 +24,7 @@ const algoOptions = [
   { label: "Heap Sort", value: "heap_sort" },
 ];
 
-const Navbar: React.FC<NavbarProps> = ({
+const Navbar: React.FC<Props> = ({
   settings,
   setSettings,
   setForceUpdate,

@@ -1,10 +1,10 @@
 import React from "react";
 
-interface SortingElementsProps {
+type Props = {
   elements: number[];
-}
+};
 
-const SortingElements: React.FC<SortingElementsProps> = ({ elements }) => {
+const SortingElements: React.FC<Props> = ({ elements }) => {
   return (
     <div className="relative w-full h-96 ">
       {/* Bars */}

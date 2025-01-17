@@ -1,22 +1,14 @@
+import { DistMap, HeapNode, PathNode } from "@/app/types";
 import { MinHeap } from "./minHeap";
-import { getNeighbours, getNodeKey, Node } from "./utils";
+import { getNeighbours, getNodeKey } from "./utils";
 
-interface DistMap {
-  [key: string]: {
-    dist: number;
-    prev: Node | null;
-  };
-}
-
-interface HeapNode {
-  node: Node;
-  cost: number; // Distance from the start node
-  prev: Node | null;
-}
-
-export const dijkstras = (startNode: Node, endNode: Node, grid: Node[][]) => {
+export const dijkstras = (
+  startNode: PathNode,
+  endNode: PathNode,
+  grid: PathNode[][]
+) => {
   const distMap: DistMap = {};
-  const visitedNodes: Node[] = [];
+  const visitedNodes: PathNode[] = [];
   const visitedSet = new Set<string>(); // Use strings (keys) for tracking
   const priorityQueue = new MinHeap<HeapNode>("cost");
 
@@ -65,11 +57,11 @@ export const dijkstras = (startNode: Node, endNode: Node, grid: Node[][]) => {
   return { path, visitedNodes };
 };
 
-const buildPath = (distMap: DistMap, endNode: Node): Node[] => {
-  const path: Node[] = [];
+const buildPath = (distMap: DistMap, endNode: PathNode): PathNode[] => {
+  const path: PathNode[] = [];
   if (!(getNodeKey(endNode) in distMap)) return path;
 
-  let currentNode: Node | null = endNode;
+  let currentNode: PathNode | null = endNode;
   while (currentNode) {
     path.push(currentNode);
     currentNode = distMap[getNodeKey(currentNode)].prev;

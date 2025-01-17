@@ -1,22 +1,18 @@
-import { Node, getNeighbours, getNodeKey } from "./utils";
-
-interface QueueNode {
-  node: Node;
-  prev: Node | null;
-}
+import { PathNode, QueueNode } from "@/app/types";
+import { getNeighbours, getNodeKey } from "./utils";
 
 export const bfs = (
-  startNode: Node,
-  endNode: Node,
-  grid: Node[][]
-): { path: Node[]; visitedNodes: Node[] } => {
+  startNode: PathNode,
+  endNode: PathNode,
+  grid: PathNode[][]
+): { path: PathNode[]; visitedNodes: PathNode[] } => {
   console.log("grid1", grid);
   console.log("endNode", endNode);
   console.log("startNode", startNode);
-  const visitedNodes: Node[] = [];
-  const visitedSet = new Set<Node>();
+  const visitedNodes: PathNode[] = [];
+  const visitedSet = new Set<PathNode>();
   const queue: QueueNode[] = [{ node: startNode, prev: null }];
-  const pathMap: Record<string, Node | null> = {};
+  const pathMap: Record<string, PathNode | null> = {};
 
   // BFS loop
   while (queue.length > 0) {
@@ -53,15 +49,15 @@ export const bfs = (
 };
 
 const buildPath = (
-  pathMap: Record<string, Node | null>,
-  endNode: Node
-): Node[] => {
-  const path: Node[] = [];
+  pathMap: Record<string, PathNode | null>,
+  endNode: PathNode
+): PathNode[] => {
+  const path: PathNode[] = [];
   const endKey = getNodeKey(endNode);
 
   if (!(endKey in pathMap)) return path;
 
-  let currentNode: Node | null = endNode;
+  let currentNode: PathNode | null = endNode;
 
   while (currentNode) {
     path.unshift(currentNode);

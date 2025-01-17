@@ -1,15 +1,15 @@
 import React from "react";
 
-interface SliderProps {
+type Props = {
   label: string;
   value: number;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   min: number;
   max: number;
   disabled?: boolean;
-}
+};
 
-const Slider: React.FC<SliderProps> = ({
+const Slider: React.FC<Props> = ({
   label,
   value,
   onChange,

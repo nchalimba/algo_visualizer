@@ -1,16 +1,16 @@
-interface AnimateTreeProps {
+type Props = {
   visited: number[];
   setVisitedArray: React.Dispatch<React.SetStateAction<number[]>>;
   setDisableButtons: React.Dispatch<React.SetStateAction<boolean>>;
   delay: number;
-}
+};
 
 export const animateTree = ({
   visited,
   setVisitedArray,
   setDisableButtons,
   delay,
-}: AnimateTreeProps): void => {
+}: Props): void => {
   setVisitedArray([]);
   visited.forEach((nodeNumber, index) => {
     const node = document.getElementById(`node-${nodeNumber}`);

@@ -1,15 +1,11 @@
-type SwapArray = [number, number][];
-type SetElements = (elements: number[]) => void;
-type SetDisableButtons = (disable: boolean) => void;
-
-interface AnimateProps {
+type Props = {
   sortedArray: number[];
-  swapArray: SwapArray;
-  setDisableButtons: SetDisableButtons;
-  setElements: SetElements;
+  swapArray: [number, number][];
+  setDisableButtons: (disable: boolean) => void;
+  setElements: (elements: number[]) => void;
   delay: number;
   isMerge?: boolean;
-}
+};
 
 export const animate = ({
   sortedArray,
@@ -18,27 +14,35 @@ export const animate = ({
   setElements,
   delay,
   isMerge = false,
-}: AnimateProps): void => {
+}: Props) => {
   if (isMerge) {
-    animateMerge(sortedArray, swapArray, setDisableButtons, setElements, delay);
-  } else {
-    animateElements(
+    animateMerge({
       sortedArray,
       swapArray,
       setDisableButtons,
       setElements,
-      delay
-    );
+      delay,
+    });
+  } else {
+    animateElements({
+      sortedArray,
+      swapArray,
+      setDisableButtons,
+      setElements,
+      delay,
+    });
   }
 };
 
 const animateElements = (
-  sortedArray: number[],
-  swapArray: SwapArray,
-  setDisableButtons: SetDisableButtons,
-  setElements: SetElements,
-  delay: number
-): void => {
+  {
+    sortedArray,
+    swapArray,
+    setDisableButtons,
+    setElements,
+    delay,
+  }: Omit<Props, "isMerge"> // props without isMerge
+) => {
   if (swapArray.length === 0) {
     setDisableButtons(false);
     return;
@@ -78,13 +82,13 @@ const animateElements = (
   });
 };
 
-const animateMerge = (
-  sortedArray: number[],
-  swapArray: [number, number][],
-  setDisableButtons: SetDisableButtons,
-  setElements: SetElements,
-  delay: number
-): void => {
+const animateMerge = ({
+  sortedArray,
+  swapArray,
+  setDisableButtons,
+  setElements,
+  delay,
+}: Omit<Props, "isMerge">): void => {
   swapArray.forEach(([newHeight, myIndex], index) => {
     const element = document.getElementById(`bar-${myIndex}`);
     if (!element) return;

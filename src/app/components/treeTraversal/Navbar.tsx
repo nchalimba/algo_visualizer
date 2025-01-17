@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 
-import { TreeTraversalAlgo, TreeTraversalSettings } from "../../types";
+import {
+  SelectOption,
+  TreeTraversalAlgo,
+  TreeTraversalSettings,
+} from "../../types";
 import Button from "../common/Button";
-import Select, { Option } from "../common/Select";
+import Select from "../common/Select";
 import Slider from "../common/Slider";
 import { FaPlay } from "react-icons/fa";
 import {
@@ -13,14 +17,14 @@ import {
 import { animateTree } from "@/utils/treeTraversal/visualize";
 import { bfs } from "@/utils/treeTraversal/bfs";
 
-interface NavbarProps {
+type Props = {
   settings: TreeTraversalSettings;
   setSettings: React.Dispatch<React.SetStateAction<TreeTraversalSettings>>;
   setTree: React.Dispatch<React.SetStateAction<number[]>>;
   setVisitedArray: React.Dispatch<React.SetStateAction<number[]>>;
   tree: number[];
-}
-const algoOptions: Option<TreeTraversalAlgo>[] = [
+};
+const algoOptions: SelectOption<TreeTraversalAlgo>[] = [
   { label: "Inorder", value: "inorder" },
   { label: "Postorder", value: "postorder" },
   { label: "Preorder", value: "preorder" },
@@ -34,7 +38,7 @@ const treeTraversalMap = {
   levelorder: bfs,
 };
 
-const Navbar: React.FC<NavbarProps> = ({
+const Navbar: React.FC<Props> = ({
   settings,
   tree,
   setSettings,

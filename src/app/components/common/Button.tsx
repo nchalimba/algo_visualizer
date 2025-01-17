@@ -1,14 +1,14 @@
 import React from "react";
 import { clsx } from "clsx";
 
-interface ButtonProps {
+type Props = {
   children: React.ReactNode;
   onClick: () => void;
   disabled?: boolean;
   active?: boolean;
-}
+};
 
-const Button: React.FC<ButtonProps> = ({
+const Button: React.FC<Props> = ({
   children,
   onClick,
   disabled = false,

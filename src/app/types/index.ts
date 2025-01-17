@@ -1,14 +1,29 @@
-export interface SortingSettings {
+/* Sorting */
+export type SortingSettings = {
   algoType: string | null;
   length: number;
   delay: number;
-}
+};
 
-export interface TreeTraversalSettings {
+export type SortingElement = number;
+
+export type SortType =
+  | "insertion_sort"
+  | "merge_sort"
+  | "quick_sort"
+  | "heap_sort";
+
+export type SortResult = {
+  sortedArray: number[];
+  swapArray: [number, number][];
+};
+
+/* Tree Traversal */
+export type TreeTraversalSettings = {
   algo: TreeTraversalAlgo | null;
   delay: number;
   length: number;
-}
+};
 
 export type TreeTraversalAlgo =
   | "inorder"
@@ -18,6 +33,7 @@ export type TreeTraversalAlgo =
 
 export type Tree = (number | null)[];
 
+/* Pathfinding */
 export type PathFindingSettings = {
   rows: number;
   cols: number;
@@ -39,4 +55,26 @@ export type PathNode = {
 
 export type PathFindingAlgo = "bfs" | "dijkstra" | "astar";
 
-export type SortingElement = number;
+export type HeapNode = {
+  node: PathNode;
+  cost: number;
+  prev: PathNode | null;
+};
+
+export type QueueNode = {
+  node: PathNode;
+  prev: PathNode | null;
+};
+
+export type DistMap = {
+  [key: string]: {
+    dist: number;
+    prev: PathNode | null;
+  };
+};
+
+/* Common */
+export type SelectOption<T = string> = {
+  label: string;
+  value: T;
+};
