@@ -36,7 +36,7 @@ export default {
         },
       },
       fontFamily: {
-        retro: ["'Source Code Pro'", "cursive"], // Retro font
+        retro: ["'Oxanium'", "cursive"], // Retro font
       },
     },
   },

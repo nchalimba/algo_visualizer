@@ -7,7 +7,7 @@ type Props = {
 const VisitedArray: React.FC<Props> = ({ array }) => {
   return (
     <div className="mt-4 bg-retroDark-200 p-4 rounded shadow-lg">
-      <h3 className="text-xl font-bold mb-3 text-retroText-light">
+      <h3 className="text-lg md:text-xl font-bold mb-3 text-retroText-light">
         Visited Nodes:
       </h3>
       {array.length === 0 ? (
@@ -17,7 +17,7 @@ const VisitedArray: React.FC<Props> = ({ array }) => {
           {array.map((node, index) => (
             <div
               key={index}
-              className="bg-retroDark-accent text-white font-medium p-2 w-12 h-12 flex items-center justify-center rounded-full shadow-md hover:bg-blue-400 transition"
+              className="bg-retroDark-accent text-white font-bold p-2 h-9 w-9 md:w-12 md:h-12 flex items-center justify-center rounded-full shadow-md hover:bg-retroDark-accent-hover transition text-md md:text-lg"
             >
               {node}
             </div>

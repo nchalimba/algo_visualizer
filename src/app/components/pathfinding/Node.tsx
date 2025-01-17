@@ -13,7 +13,7 @@ export const Node: React.FC<PathNode & { isMovable?: boolean; id: string }> = ({
   id,
 }) => {
   const nodeClasses = clsx(
-    "w-10 h-10 border rounded-lg border-retroDark-100 flex items-center justify-center",
+    "w-5 min-[450px]:w-6 min-[450px]:h-6 min-[550px]:w-8 min-[550px]:h-8 sm:w-9 sm:h-9 h-5 lg:w-12 lg:h-12 border lg:rounded-lg sm:rounded-md border-retroDark-100 flex items-center justify-center",
     {
       "bg-retroDark-400": isWall, // Wall styles take precedence
       "bg-retroDark-accent": !isWall && (isStart || isPath), // Path and start styles
@@ -29,8 +29,12 @@ export const Node: React.FC<PathNode & { isMovable?: boolean; id: string }> = ({
 
   return (
     <div className={nodeClasses} id={id}>
-      {isEnd && <FaFlagCheckered className="w-4 h-4" />}
-      {isStart && <FaPersonWalking className="w-4 h-4" />}
+      {isEnd && (
+        <FaFlagCheckered className="w-3 h-3 sm:h-4 sm:w-4 lg:h-5 lg:w-5" />
+      )}
+      {isStart && (
+        <FaPersonWalking className="w-3 h-3 sm:h-4 sm:w-4 lg:h-5 lg:w-5" />
+      )}
     </div>
   );
 };

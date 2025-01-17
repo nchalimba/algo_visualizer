@@ -83,7 +83,7 @@ export const Navbar: React.FC<Props> = ({
             <span className="hidden md:inline">Maze</span>
           </div>
         </Button>
-        <div className="flex-grow">
+        <div className="flex-grow hidden md:inline">
           <Select
             options={algorithmOptions}
             value={algorithmOptions.find(
@@ -101,6 +101,17 @@ export const Navbar: React.FC<Props> = ({
             <span className="hidden md:inline">Start</span>
           </div>
         </Button>
+      </div>
+      <div className="md:hidden">
+        <Select
+          options={algorithmOptions}
+          value={algorithmOptions.find(
+            (option) => option.value === settings.algo
+          )}
+          onChange={handleAlgoChange}
+          placeholder="Select Algorithm"
+          disabled={disableControls}
+        />
       </div>
 
       <div className="flex flex-col md:flex-row gap-4">

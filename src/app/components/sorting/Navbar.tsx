@@ -75,7 +75,27 @@ const Navbar: React.FC<Props> = ({
             <span className="hidden md:inline">New</span>
           </div>
         </Button>
+        <div className="hidden md:inline">
+          <Select
+            options={algoOptions}
+            value={algoOptions.find(
+              (option) => option.value === settings.algoType
+            )}
+            placeholder="Select algo..."
+            onChange={(value) =>
+              setSettings((prev) => ({ ...prev, algoType: value.value }))
+            }
+          />
+        </div>
+        <Button onClick={handleSort} disabled={disableButtons}>
+          <div className="flex items-center gap-2">
+            <FaPlay className="text-xs" />
+            <span className="hidden md:inline">Start</span>
+          </div>
+        </Button>
+      </div>
 
+      <div className="mt-4 md:hidden">
         <Select
           options={algoOptions}
           value={algoOptions.find(
@@ -86,15 +106,9 @@ const Navbar: React.FC<Props> = ({
             setSettings((prev) => ({ ...prev, algoType: value.value }))
           }
         />
-        <Button onClick={handleSort} disabled={disableButtons}>
-          <div className="flex items-center gap-2">
-            <FaPlay className="text-xs" />
-            <span className="hidden md:inline">Start</span>
-          </div>
-        </Button>
       </div>
 
-      <div className="flex gap-8 mt-4 lg:mt-0">
+      <div className="flex flex-col md:flex-row gap-8 mt-4 lg:mt-0">
         <Slider
           label={`Length: ${settings.length}`}
           value={settings.length}

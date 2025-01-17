@@ -13,17 +13,17 @@ const Node: React.FC<Props> = ({ tree, index }) => {
   const hasRightChild = rightChildIndex < tree.length;
 
   return (
-    <div className="flex flex-col items-center mb-8">
+    <div className="flex flex-col items-center">
       {/* Parent Node */}
       <div
-        className="bg-retroDark-accent text-white p-4 rounded-full w-16 text-center"
+        className="bg-retroDark-accent text-white h-9 w-9 md:w-12 md:h-12 flex items-center justify-center rounded-full text-center"
         id={`node-${index}`}
       >
-        <p>{tree[index]}</p>
+        <p className="text-md md:text-lg font-bold">{tree[index]}</p>
       </div>
 
       {/* Children */}
-      <div className="flex justify-between w-full mt-4 gap-4">
+      <div className="flex justify-between w-full mt-3 gap-1 md:gap-3">
         {hasLeftChild && (
           <div className="flex flex-col items-center">
             <Node tree={tree} index={leftChildIndex} />
