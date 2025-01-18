@@ -3,7 +3,7 @@ import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/sorting/Navbar";
 import SortingElements from "../components/sorting/SortingElements";
-import { SortingSettings } from "../types";
+import { SortingElement, SortingSettings } from "../types";
 
 const defaultSettings: SortingSettings = {
   algoType: null,
@@ -13,13 +13,14 @@ const defaultSettings: SortingSettings = {
 
 const SortingPage = () => {
   const [settings, setSettings] = useState<SortingSettings>(defaultSettings);
-  const [elements, setElements] = useState<number[]>([]);
+  const [elements, setElements] = useState<SortingElement[]>([]);
   const [forceUpdate, setForceUpdate] = useState(false);
 
   useEffect(() => {
-    const numbers = Array.from({ length: settings.length }, () =>
-      Math.floor(Math.random() * 500)
-    );
+    const numbers = Array.from({ length: settings.length }, () => ({
+      value: Math.floor(Math.random() * 500),
+      isActive: false,
+    }));
     setElements(numbers);
   }, [settings.length, forceUpdate]);
 

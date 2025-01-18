@@ -1,7 +1,8 @@
+import { SortingElement } from "@/app/types";
 import swap from "./swap";
 
 export const quickSort = (
-  elements: number[],
+  elements: SortingElement[],
   swapArray: [number, number][],
   low: number = 0,
   high: number = elements.length - 1
@@ -14,17 +15,17 @@ export const quickSort = (
 };
 
 const partition = (
-  elements: number[],
+  elements: SortingElement[],
   swapArray: [number, number][],
   low: number,
   high: number
 ): number => {
-  const pivot = elements[high];
+  const pivot = elements[high].value;
 
   let i = low - 1;
 
   for (let j = low; j <= high - 1; j++) {
-    if (elements[j] < pivot) {
+    if (elements[j].value < pivot) {
       i++;
       swapArray.push([i, j]);
       swap(elements, i, j);

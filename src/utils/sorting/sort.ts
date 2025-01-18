@@ -2,11 +2,11 @@ import { insertionSort } from "./insertionSort";
 import { mergeSort } from "./mergeSort";
 import { quickSort } from "./quickSort";
 import { heapSort } from "./heapSort";
-import { SortResult, SortType } from "@/app/types";
+import { SortingElement, SortResult, SortType } from "@/app/types";
 
 const sortMap: Record<
   SortType,
-  (elements: number[], swapArray: [number, number][]) => void
+  (elements: SortingElement[], swapArray: [number, number][]) => void
 > = {
   insertion_sort: insertionSort,
   merge_sort: mergeSort,
@@ -14,7 +14,7 @@ const sortMap: Record<
   heap_sort: heapSort,
 };
 
-const sort = (type: SortType, elements: number[]): SortResult => {
+const sort = (type: SortType, elements: SortingElement[]): SortResult => {
   const sortedArray = [...elements];
   const swapArray: [number, number][] = [];
   sortMap[type](sortedArray, swapArray);

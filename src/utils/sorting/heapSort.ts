@@ -1,7 +1,8 @@
+import { SortingElement } from "@/app/types";
 import swap from "./swap";
 
 export const heapSort = (
-  elements: number[],
+  elements: SortingElement[],
   swapArray: [number, number][]
 ): void => {
   const lastParent = Math.floor(elements.length / 2);
@@ -17,7 +18,7 @@ export const heapSort = (
 };
 
 const heapify = (
-  elements: number[],
+  elements: SortingElement[],
   swapArray: [number, number][],
   index: number,
   length: number = elements.length
@@ -26,10 +27,10 @@ const heapify = (
   const left = index * 2 + 1;
   const right = index * 2 + 2;
 
-  if (left < length && elements[left] > elements[largest]) {
+  if (left < length && elements[left].value > elements[largest].value) {
     largest = left;
   }
-  if (right < length && elements[right] > elements[largest]) {
+  if (right < length && elements[right].value > elements[largest].value) {
     largest = right;
   }
 

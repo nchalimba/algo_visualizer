@@ -6,9 +6,6 @@ export const bfs = (
   endNode: PathNode,
   grid: PathNode[][]
 ): { path: PathNode[]; visitedNodes: PathNode[] } => {
-  console.log("grid1", grid);
-  console.log("endNode", endNode);
-  console.log("startNode", startNode);
   const visitedNodes: PathNode[] = [];
   const visitedSet = new Set<PathNode>();
   const queue: QueueNode[] = [{ node: startNode, prev: null }];

@@ -1,7 +1,9 @@
 import React from "react";
+import Bar from "./Bar";
+import { SortingElement } from "@/app/types";
 
 type Props = {
-  elements: number[];
+  elements: SortingElement[];
 };
 
 const SortingElements: React.FC<Props> = ({ elements }) => {
@@ -10,14 +12,11 @@ const SortingElements: React.FC<Props> = ({ elements }) => {
       {/* Bars */}
       <div className="flex items-start w-full h-full">
         {elements.map((element, index) => (
-          <div
+          <Bar
             key={index}
-            id={`bar-${index}`}
-            className="bg-retroDark-accent rounded-sm rounded-t-none"
-            style={{
-              height: `${element}px`, // Height of the bar, grows downwards
-              width: `${100 / elements.length}%`, // Ensure bars are evenly spaced with no gap
-            }}
+            bar={element}
+            index={index}
+            amountBars={elements.length}
           />
         ))}
       </div>

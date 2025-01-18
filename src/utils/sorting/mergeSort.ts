@@ -1,7 +1,9 @@
+import { SortingElement } from "@/app/types";
+
 export const mergeSort = (
-  elements: number[],
+  elements: SortingElement[],
   swapArray: [number, number][],
-  helperArray: number[] = [],
+  helperArray: SortingElement[] = [],
   low: number = 0,
   high: number = elements.length - 1
 ): void => {
@@ -17,32 +19,38 @@ export const mergeSort = (
 };
 
 const merge = (
-  elements: number[],
-  helperArray: number[],
+  elements: SortingElement[],
+  helperArray: SortingElement[],
   swapArray: [number, number][],
   low: number,
   mid: number,
   high: number
 ): void => {
   for (let i = low; i <= high; i++) {
-    helperArray[i] = elements[i];
+    helperArray[i] = { ...elements[i] };
   }
 
   let firstPointer = low;
   let secondPointer = mid + 1;
   for (let i = low; i <= high; i++) {
     if (firstPointer > mid) {
-      swapArray.push([helperArray[secondPointer], i]);
-      elements[i] = helperArray[secondPointer++];
+      // Left partition exhausted
+      swapArray.push([helperArray[secondPointer].value, i]);
+      elements[i] = { ...helperArray[secondPointer++] };
     } else if (secondPointer > high) {
-      swapArray.push([helperArray[firstPointer], i]);
-      elements[i] = helperArray[firstPointer++];
-    } else if (helperArray[firstPointer] <= helperArray[secondPointer]) {
-      swapArray.push([helperArray[firstPointer], i]);
-      elements[i] = helperArray[firstPointer++];
+      // Right partition exhausted
+      swapArray.push([helperArray[firstPointer].value, i]);
+      elements[i] = { ...helperArray[firstPointer++] };
+    } else if (
+      helperArray[firstPointer].value <= helperArray[secondPointer].value
+    ) {
+      // Take from left partition
+      swapArray.push([helperArray[firstPointer].value, i]);
+      elements[i] = { ...helperArray[firstPointer++] };
     } else {
-      swapArray.push([helperArray[secondPointer], i]);
-      elements[i] = helperArray[secondPointer++];
+      // Take from right partition
+      swapArray.push([helperArray[secondPointer].value, i]);
+      elements[i] = { ...helperArray[secondPointer++] };
     }
   }
 };

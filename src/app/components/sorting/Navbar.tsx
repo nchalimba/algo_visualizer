@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { SortingSettings, SortType } from "../../types";
+import { SortingElement, SortingSettings, SortType } from "../../types";
 
 import Slider from "../common/Slider";
 import Button from "../common/Button";
@@ -13,8 +13,8 @@ type Props = {
   settings: SortingSettings;
   setSettings: React.Dispatch<React.SetStateAction<SortingSettings>>;
   setForceUpdate: React.Dispatch<React.SetStateAction<boolean>>;
-  elements: number[];
-  setElements: React.Dispatch<React.SetStateAction<number[]>>;
+  elements: SortingElement[];
+  setElements: React.Dispatch<React.SetStateAction<SortingElement[]>>;
 };
 
 const algoOptions = [

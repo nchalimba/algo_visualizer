@@ -5,7 +5,10 @@ export type SortingSettings = {
   delay: number;
 };
 
-export type SortingElement = number;
+export type SortingElement = {
+  value: number;
+  isActive?: boolean;
+};
 
 export type SortType =
   | "insertion_sort"
@@ -14,7 +17,7 @@ export type SortType =
   | "heap_sort";
 
 export type SortResult = {
-  sortedArray: number[];
+  sortedArray: SortingElement[];
   swapArray: [number, number][];
 };
 
@@ -31,7 +34,12 @@ export type TreeTraversalAlgo =
   | "postorder"
   | "levelorder";
 
-export type Tree = (number | null)[];
+export type TreeNode = {
+  key: number;
+  isActive?: boolean;
+};
+
+// export type Tree = (number | null)[];
 
 /* Pathfinding */
 export type PathFindingSettings = {
