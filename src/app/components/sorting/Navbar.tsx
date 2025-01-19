@@ -47,13 +47,9 @@ const Navbar: React.FC<Props> = ({
   const handleSort = () => {
     if (!settings.algoType) return;
     setDisableButtons(true);
-    const { sortedArray, swapArray } = sort(
-      settings.algoType as SortType,
-      elements
-    );
+    const { swapArray } = sort(settings.algoType as SortType, elements);
 
     animate({
-      sortedArray,
       swapArray,
       setDisableButtons,
       setElements,
