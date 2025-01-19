@@ -2,55 +2,82 @@
 
 ## Description
 
-This web application enables the visualization of essential algorithms.
-To visit the demo, go to https://chalimba-algo-visualizer.netlify.app/
-<br>
-<br>
+Algorithm Visualizer is an interactive web application designed to help users explore and understand essential algorithms through visualization. The tool provides an intuitive interface to observe how algorithms work step-by-step.
+
+🚀 **Live Demo**: [Visit the Algorithm Visualizer](https://chalimba-algo-visualizer.netlify.app/)
+
+---
 
 ## Technologies
 
-The following libraries were used while implementing the app:
+This application leverages modern web development technologies and libraries:
 
-- React
-- Next.js
-- React Icons
-  <br>
-  <br>
+- **React**: For building user interfaces.
+- **Next.js**: As the core framework for server-side rendering and routing.
+- **React Icons**: For an aesthetically pleasing and intuitive user interface.
+
+---
 
 ## Features
 
-This project includes the following features:
+### Sorting Algorithms 🟦➡️
 
-### Sorting
+Visualize sorting algorithms with dynamic bar animations:
 
-In this page, you can sort a set of bars. To use this feature:
+1. **Generate Bars**: Click **NEW** to create a randomized set of bars.
+2. **Select an Algorithm**: Choose from:
+   - **Merge Sort**
+   - **Insertion Sort**
+   - **Quick Sort**
+   - **Heap Sort**
+3. **Customize Settings**: Use sliders to adjust:
+   - The number of bars
+   - Animation delay
+4. **Start Sorting**: Hit **START** to begin the visualization.
 
-1. Click **NEW** to create a random set of bars
-2. Choose one of the following algorithms: **Merge Sort**, **Insertion Sort**, **Quick Sort**, **Heap Sort**
-3. Use the sliders to specify the amount of bars and the delay between animation steps
-4. Click **START**
-   <br>
-   <br>
+---
 
-### Pathfinding
+### Pathfinding Algorithms 🟦➡️🟥
 
-This page enables the calculation of the shortest path between a start node (green) and an end node (red) within a grid. To use this feature:
+Find the shortest path between two nodes on a grid:
 
-1. Click **Clear** to remove all walls and **Random** to create walls at random positions
-2. Choose one of the following algorithms: **Breadth-First Search**, **Dijkstra's Algorithm**, **A\* Search**
-3. Use the sliders to specify the amount of rows and columns, as well as the delay between animation steps
-4. Click the **Pen-Button** and the **Erase-Button** to paint or remove walls
-5. Click the **Move-Button** to move the start or end node
-6. Click **START**
+1. **Grid Setup**:
+   - Use **Clear** to reset the grid and **Maze** to generate a maze.
+   - Walls are represented by blocked grid cells.
+2. **Select an Algorithm**:
+   - **Breadth-First Search (BFS)**
+   - **Dijkstra's Algorithm**
+   - **A\* Search**
+3. **Interactive Editing**:
+   - Use the **Pen-Button** to draw walls and the **Erase-Button** to remove them.
+   - Drag the start node (purple) or end node (red) using the **Move-Button**.
+4. **Run the Algorithm**: Adjust rows, columns, and animation speed using sliders, then click **START**.
+5. **Real-Time Updates**: Moving the start or end node after execution recalculates the path dynamically.
 
-If you move the start or end node after running the algorithm, the new shortest path is calculated in real-time.
-<br>
-<br>
+---
 
-### Tree Traversal
+### Tree Traversal 🌲➡️
 
-This page animates the traversal of a complete binary tree. To use this feature:
+Explore binary tree traversals through animations:
 
-1. Choose one of the following algorithms: **Inorder Traversal**, **Postorder Traversal**, **Preorder Traversal**, **Level Order Traversal**
-2. Use the sliders to specify the amount of nodes and the delay between animation steps
-3. Click **START**
+1. **Select a Traversal Algorithm**:
+   - **Inorder Traversal**
+   - **Preorder Traversal**
+   - **Postorder Traversal**
+   - **Level Order Traversal**
+2. **Customize Settings**:
+   - Adjust the number of nodes in the tree.
+   - Set the animation delay.
+3. **Run the Traversal**: Click **START** to begin the animation.
+
+---
+
+## Contributing
+
+We welcome contributions! If you'd like to improve the visualizations or add new algorithms, feel free to fork the repository and open a pull request.
+
+---
+
+## License
+
+This project is licensed under the [MIT License](./LICENSE).

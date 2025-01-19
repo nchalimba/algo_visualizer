@@ -11,6 +11,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Upcoming features and enhancements will be listed here. Stay tuned!
 
+## [2.0.0] - 2025-01-19
+
+### Added
+
+- **Pathfinding Maze Generation**: A thrilling new feature! Users can now generate intricate mazes to test the power and efficiency of pathfinding algorithms. This addition adds a layer of challenge and excitement, showcasing algorithm capabilities in dynamic scenarios.
+
+### Changed
+
+- **Complete Application Refactor**: I've rebuilt the app from the ground up! Now powered by **Next.js 15**, **TypeScript**, and the **App Router**, the project delivers cutting-edge performance and scalability. This update ensures a smoother developer experience and paves the way for future enhancements.
+
+- **Retro Dark Theme Redesign**: Welcome to a nostalgic journey with a sleek, modern twist! The entire UI has been revamped to reflect a **retro dark aesthetic**, featuring bold purple highlights and a game-inspired interface. Perfect for algorithm enthusiasts and gamers alike.
+
 ## [1.0.0] - 2022-12-05
 
 ### Added
