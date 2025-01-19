@@ -1,21 +1,21 @@
-import { Tree } from "@/app/types";
+import { TreeNode } from "@/app/types";
 
-export const bfs = (tree: Tree, visited: number[]): void => {
-  const queue: number[] = [0]; // Start from the root (index 0)
+export const bfs = (tree: TreeNode[], visited: number[]): void => {
+  const queue: TreeNode[] = [tree[0]]; // Start from the root (index 0)
 
   while (queue.length > 0) {
-    const currentNode = queue.shift() as number; // Safe to assert as number since the queue only contains numbers
-    visited.push(currentNode);
+    const currentNode = queue.shift() as TreeNode; // Safe to assert as number since the queue only contains numbers
+    visited.push(currentNode.key);
 
-    const leftChild = currentNode * 2 + 1;
-    const rightChild = currentNode * 2 + 2;
+    const leftChild = tree[currentNode.key * 2 + 1];
+    const rightChild = tree[currentNode.key * 2 + 2];
 
     // Check if the left child exists and is valid (not null)
-    if (tree[leftChild] != null) {
+    if (leftChild != null) {
       queue.push(leftChild);
     }
     // Check if the right child exists and is valid (not null)
-    if (tree[rightChild] != null) {
+    if (rightChild != null) {
       queue.push(rightChild);
     }
   }

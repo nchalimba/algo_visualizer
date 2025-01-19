@@ -4,7 +4,7 @@ import Head from "next/head";
 import Navbar from "../components/treeTraversal/Navbar";
 import Node from "../components/treeTraversal/Node";
 import VisitedArray from "../components/treeTraversal/VisitedArray";
-import { TreeTraversalSettings } from "../types";
+import { TreeNode, TreeTraversalSettings } from "../types";
 
 const TreeTraversalPage = () => {
   const [settings, setSettings] = useState<TreeTraversalSettings>({
@@ -13,15 +13,14 @@ const TreeTraversalPage = () => {
     length: 3, // Default tree length
   });
 
-  const [tree, setTree] = useState<number[]>([0]);
+  const [tree, setTree] = useState<TreeNode[]>([{ key: 0 }]);
   const [visitedArray, setVisitedArray] = useState<number[]>([]);
 
   // Update tree when the length changes
   useEffect(() => {
-    const newTree = Array.from(
-      { length: settings.length },
-      (_, index) => index
-    );
+    const newTree = Array.from({ length: settings.length }, (_, index) => ({
+      key: index,
+    }));
 
     setTree(newTree);
   }, [settings.length]);

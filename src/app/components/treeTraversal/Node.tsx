@@ -1,7 +1,9 @@
+import { TreeNode } from "@/app/types";
+import clsx from "clsx";
 import React from "react";
 
 type Props = {
-  tree: number[];
+  tree: TreeNode[];
   index: number;
 };
 
@@ -12,14 +14,19 @@ const Node: React.FC<Props> = ({ tree, index }) => {
   const hasLeftChild = leftChildIndex < tree.length;
   const hasRightChild = rightChildIndex < tree.length;
 
+  //TODO: add visited color
+  const nodeClasses = clsx(
+    "text-white h-9 w-9 md:w-12 md:h-12 flex items-center justify-center rounded-full text-center",
+    {
+      "bg-retroDark-accent": !tree[index].isActive, // Default node
+      "bg-highlight": tree[index].isActive, // Visited node
+    }
+  );
   return (
     <div className="flex flex-col items-center">
       {/* Parent Node */}
-      <div
-        className="bg-retroDark-accent text-white h-9 w-9 md:w-12 md:h-12 flex items-center justify-center rounded-full text-center"
-        id={`node-${index}`}
-      >
-        <p className="text-md md:text-lg font-bold">{tree[index]}</p>
+      <div className={nodeClasses} id={`node-${index}`}>
+        <p className="text-md md:text-lg font-bold">{tree[index].key}</p>
       </div>
 
       {/* Children */}

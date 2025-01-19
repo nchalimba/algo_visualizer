@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import {
   SelectOption,
+  TreeNode,
   TreeTraversalAlgo,
   TreeTraversalSettings,
 } from "../../types";
@@ -20,9 +21,9 @@ import { bfs } from "@/utils/treeTraversal/bfs";
 type Props = {
   settings: TreeTraversalSettings;
   setSettings: React.Dispatch<React.SetStateAction<TreeTraversalSettings>>;
-  setTree: React.Dispatch<React.SetStateAction<number[]>>;
+  setTree: React.Dispatch<React.SetStateAction<TreeNode[]>>;
   setVisitedArray: React.Dispatch<React.SetStateAction<number[]>>;
-  tree: number[];
+  tree: TreeNode[];
 };
 const algoOptions: SelectOption<TreeTraversalAlgo>[] = [
   { label: "Inorder", value: "inorder" },
@@ -54,7 +55,7 @@ const Navbar: React.FC<Props> = ({
   const handleLengthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newLength = parseInt(event.target.value);
     setSettings((prev) => ({ ...prev, length: newLength }));
-    setTree(Array.from({ length: newLength }, (_, index) => index));
+    setTree(Array.from({ length: newLength }, (_, index) => ({ key: index })));
   };
 
   const handleAlgoChange = (value: {
@@ -64,6 +65,14 @@ const Navbar: React.FC<Props> = ({
     setSettings((prev) => ({ ...prev, algo: value.value }));
   };
 
+  const updateNode = (index: number, isActive: boolean) => {
+    setTree((prev) => {
+      const newTree = prev.map((node) => ({ ...node }));
+      newTree[index].isActive = isActive;
+      return newTree;
+    });
+  };
+
   const handleStart = () => {
     if (!settings.algo) return;
     setDisableButtons(true);
@@ -71,6 +80,7 @@ const Navbar: React.FC<Props> = ({
     treeTraversalMap[settings.algo](tree, visited, 0);
     animateTree({
       visited,
+      updateNode,
       setVisitedArray,
       setDisableButtons,
       delay: settings.delay,
@@ -88,7 +98,6 @@ const Navbar: React.FC<Props> = ({
           onChange={(value) => handleAlgoChange(value)}
         />
 
-        {/* Start Button */}
         <Button onClick={handleStart} disabled={disableButtons}>
           <div className="flex items-center gap-2">
             <FaPlay className="text-xs" />
@@ -98,7 +107,6 @@ const Navbar: React.FC<Props> = ({
       </div>
 
       <div className="flex gap-8 mt-4 lg:mt-0">
-        {/* Length Slider */}
         <Slider
           label={`Length: ${settings.length}`}
           value={settings.length}
@@ -106,8 +114,6 @@ const Navbar: React.FC<Props> = ({
           min={3}
           max={15}
         />
-
-        {/* Delay Slider */}
         <Slider
           label={`Delay: ${settings.delay} ms`}
           value={settings.delay}

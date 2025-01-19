@@ -1,5 +1,6 @@
 type Props = {
   visited: number[];
+  updateNode: (index: number, isActive: boolean) => void;
   setVisitedArray: React.Dispatch<React.SetStateAction<number[]>>;
   setDisableButtons: React.Dispatch<React.SetStateAction<boolean>>;
   delay: number;
@@ -7,23 +8,19 @@ type Props = {
 
 export const animateTree = ({
   visited,
+  updateNode,
   setVisitedArray,
   setDisableButtons,
   delay,
 }: Props): void => {
   setVisitedArray([]);
-  visited.forEach((nodeNumber, index) => {
-    const node = document.getElementById(`node-${nodeNumber}`);
-    if (!node) return;
-
+  visited.forEach((node, index) => {
     setTimeout(() => {
-      node.classList.remove("bg-retroDark-accent");
-      node.classList.add("bg-highlight");
-      setVisitedArray((prev) => [...prev, nodeNumber]);
+      updateNode(node, true);
+      setVisitedArray((prev) => [...prev, node]);
 
       setTimeout(() => {
-        node.classList.remove("bg-highlight");
-        node.classList.add("bg-retroDark-accent");
+        updateNode(node, false);
         if (index === visited.length - 1) {
           setDisableButtons(false);
         }

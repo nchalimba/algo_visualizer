@@ -18,7 +18,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        highlight: "#8A99FF", // Custom vibrant purple
+        highlight: "#9ca9ff", // Custom vibrant purple
         retroDark: {
           100: "#0d0e1c", // Very dark blue-gray background (almost black)
           200: "#10182a", // Darker blue-gray for subtle contrast

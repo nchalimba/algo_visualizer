@@ -1,8 +1,8 @@
-import { Tree } from "@/app/types";
+import { TreeNode } from "@/app/types";
 
 // Generic DFS traversal
 export const dfs = (
-  tree: Tree,
+  tree: TreeNode[],
   visited: number[],
   type: string,
   index = 0
@@ -31,7 +31,11 @@ export const dfs = (
 };
 
 // Inorder DFS traversal
-export const inorderDFS = (tree: Tree, visited: number[], index = 0): void => {
+export const inorderDFS = (
+  tree: TreeNode[],
+  visited: number[],
+  index = 0
+): void => {
   if (tree[index] == null) return;
 
   const leftChildIndex = 2 * index + 1;
@@ -43,7 +47,11 @@ export const inorderDFS = (tree: Tree, visited: number[], index = 0): void => {
 };
 
 // Preorder DFS traversal
-export const preorderDFS = (tree: Tree, visited: number[], index = 0): void => {
+export const preorderDFS = (
+  tree: TreeNode[],
+  visited: number[],
+  index = 0
+): void => {
   if (tree[index] == null) return;
 
   const leftChildIndex = 2 * index + 1;
@@ -56,7 +64,7 @@ export const preorderDFS = (tree: Tree, visited: number[], index = 0): void => {
 
 // Postorder DFS traversal
 export const postorderDFS = (
-  tree: Tree,
+  tree: TreeNode[],
   visited: number[],
   index = 0
 ): void => {

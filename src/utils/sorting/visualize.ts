@@ -1,7 +1,6 @@
 import { SortingElement } from "@/app/types";
 
 type Props = {
-  sortedArray: SortingElement[];
   swapArray: [number, number][];
   setDisableButtons: (disable: boolean) => void;
   setElements: React.Dispatch<React.SetStateAction<SortingElement[]>>;
@@ -10,7 +9,6 @@ type Props = {
 };
 
 export const animate = ({
-  sortedArray,
   swapArray,
   setDisableButtons,
   setElements,
@@ -19,7 +17,6 @@ export const animate = ({
 }: Props) => {
   if (isMerge) {
     animateMerge({
-      sortedArray,
       swapArray,
       setDisableButtons,
       setElements,
@@ -27,7 +24,6 @@ export const animate = ({
     });
   } else {
     animateElements({
-      sortedArray,
       swapArray,
       setDisableButtons,
       setElements,
@@ -37,7 +33,6 @@ export const animate = ({
 };
 
 const animateElements = ({
-  sortedArray,
   swapArray,
   setDisableButtons,
   setElements,
@@ -87,7 +82,6 @@ const animateElements = ({
 };
 
 const animateMerge = ({
-  sortedArray,
   swapArray,
   setDisableButtons,
   setElements,
