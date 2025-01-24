@@ -2,16 +2,20 @@
 import { useState } from "react";
 import Link from "next/link";
 import { FaBars, FaSitemap, FaRoute, FaSignal } from "react-icons/fa";
-import { FaHouse, FaXmark } from "react-icons/fa6";
-import ChatBot from "../chat/ChatBot";
+import { FaGear, FaHouse, FaMessage, FaRobot, FaXmark } from "react-icons/fa6";
 import { usePathname } from "next/navigation";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const menuItems = [
   { name: "Home", href: "/", icon: FaHouse },
   { name: "Sorting", href: "/sorting", icon: FaSignal },
   { name: "Pathfinding", href: "/pathfinding", icon: FaRoute },
   { name: "Tree Traversal", href: "/tree-traversal", icon: FaSitemap },
+  { name: "AI Assistant", href: "/chat", icon: FaRobot },
+  { name: "Settings", href: "/settings", icon: FaGear },
 ];
+
+const queryClient = new QueryClient();
 
 export default function ClientLayout({
   children,
@@ -22,9 +26,9 @@ export default function ClientLayout({
   const pathname = usePathname();
 
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       {/* <ChatBot /> */}
-      <div className="flex h-screen">
+      <div className="flex h-screen relative">
         {/* Sidebar */}
         <aside
           className={`fixed top-0 left-0 h-full bg-retroDark-300 transition-all duration-300 ease-in-out z-20
@@ -68,7 +72,7 @@ export default function ClientLayout({
         </aside>
 
         {/* Main Content */}
-        <div className="flex-1 transition-all ml-12 md:ml-0 duration-300 ease-in-out">
+        <div className="flex-1 transition-all ml-12 md:ml-0 duration-300 ease-in-out overflow-y-auto">
           {/* Hamburger Button */}
           <button
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -80,6 +84,6 @@ export default function ClientLayout({
           <main className="pl-4 md:p-6">{children}</main>
         </div>
       </div>
-    </>
+    </QueryClientProvider>
   );
 }

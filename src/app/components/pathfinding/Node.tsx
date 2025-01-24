@@ -17,7 +17,7 @@ export const Node: React.FC<PathNode & { isMovable?: boolean; id: string }> = ({
     {
       "bg-retroDark-400": isWall, // Wall styles take precedence
       "bg-retroDark-accent": !isWall && (isStart || isPath), // Path and start styles
-      "bg-red-600": !isWall && isEnd, // End node
+      "bg-alert": !isWall && isEnd, // End node
       "bg-gray-100": !isWall && isVisited && !isStart && !isEnd && !isPath, // Visited node
       "bg-retroDark-300":
         !isWall && !isStart && !isEnd && !isPath && !isVisited, // Default node

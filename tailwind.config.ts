@@ -19,6 +19,7 @@ export default {
     extend: {
       colors: {
         highlight: "#9ca9ff", // Custom vibrant purple
+        alert: "#DC2626", // Custom red color for alerts/errors
         retroDark: {
           100: "#0d0e1c", // Very dark blue-gray background (almost black)
           200: "#10182a", // Darker blue-gray for subtle contrast

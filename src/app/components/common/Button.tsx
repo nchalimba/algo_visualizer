@@ -3,7 +3,7 @@ import { clsx } from "clsx";
 
 type Props = {
   children: React.ReactNode;
-  onClick: () => void;
+  onClick: (() => void) | ((event: React.FormEvent) => Promise<void>);
   disabled?: boolean;
   active?: boolean;
 };
