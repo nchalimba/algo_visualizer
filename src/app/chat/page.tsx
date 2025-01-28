@@ -9,17 +9,9 @@ import Message from "../components/chat/Message";
 import InputContainer from "../components/chat/InputContainer";
 import ErrorMessage from "../components/chat/ErrorMessage";
 import DeleteButton from "../components/chat/DeleteButton";
+import MessageContainer from "../components/chat/MessageContainer";
 
 const ChatBotPage = () => {
-  const {
-    data: messages,
-    error,
-    isLoading,
-  } = useQuery({
-    queryKey: ["messages"],
-    queryFn: getMessages,
-  });
-
   const queryClient = useQueryClient();
   const inputRef = useRef<HTMLInputElement>(null);
   const [errorMessage, setErrorMessage] = useState("");
@@ -73,16 +65,6 @@ const ChatBotPage = () => {
     onError: (error) => setErrorMessage(error.message),
   });
 
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
-
   const handleSend = async (event: React.FormEvent) => {
     event.preventDefault();
     const input = inputRef.current;
@@ -92,14 +74,6 @@ const ChatBotPage = () => {
     input.value = "";
   };
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <ErrorMessage message="Error: could not fetch messages" />;
-  }
-
   return (
     <div className="h-[calc(100vh-theme(spacing.12))] md:h-[calc(100vh-theme(spacing.12))] flex flex-col bg-retroDark-100">
       {/* Header */}
@@ -108,26 +82,12 @@ const ChatBotPage = () => {
           AI Assistant
         </h1>
         <div className="flex items-center gap-2">
-          <DeleteButton />
           <RagStatus />
+          <DeleteButton />
         </div>
       </div>
 
-      {/* Messages Container */}
-      <div className="flex-grow overflow-auto space-y-2">
-        {!messages || messages.length === 0 ? (
-          <p className="text-gray-400 italic flex h-full items-center justify-center p-6 text-center text-lg">
-            Hi there, I&apos;m your AI assistant! Ask me anything related to
-            data structures and algorithms.
-          </p>
-        ) : (
-          messages.map((message, index) => (
-            <Message key={index} message={message} />
-          ))
-        )}
-        {errorMessage && <ErrorMessage message={errorMessage} />}
-        <div className="h-2" ref={messagesEndRef} />
-      </div>
+      <MessageContainer errorMessage={errorMessage} />
 
       <InputContainer handleSend={handleSend} inputRef={inputRef} />
     </div>

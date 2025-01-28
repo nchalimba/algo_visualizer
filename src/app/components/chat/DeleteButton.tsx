@@ -1,10 +1,17 @@
 import React from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteMessages } from "@/api/message";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { deleteMessages, getMessages } from "@/api/message";
 import Button from "../common/Button";
 import { FaTrash } from "react-icons/fa";
 
 const DeleteButton = () => {
+  const { data: messages } = useQuery({
+    queryKey: ["messages"],
+    queryFn: getMessages,
+  });
+
+  const disabled = !messages || messages.length === 0;
+
   const queryClient = useQueryClient();
   const deleteMessagesMutation = useMutation({
     mutationFn: deleteMessages,
@@ -18,7 +25,7 @@ const DeleteButton = () => {
   };
 
   return (
-    <Button onClick={handleDelete}>
+    <Button error onClick={handleDelete} disabled={disabled}>
       <FaTrash />
     </Button>
   );
