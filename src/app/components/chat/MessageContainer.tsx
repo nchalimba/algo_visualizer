@@ -3,7 +3,6 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useEffect, useRef } from "react";
 import ErrorMessage from "./ErrorMessage";
 import Message from "./Message";
-import { FaRotate } from "react-icons/fa6";
 import LoadingIndicator from "../common/LoadingIndicator";
 
 type Props = {

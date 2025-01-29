@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import clsx from "clsx";
 import { getHealthStatus } from "@/api/health";
 import { HealthResponse } from "@/app/types";
-import { FaRotate } from "react-icons/fa6";
+import { AiOutlineLoading } from "react-icons/ai";
 
 const StatusIndicator = ({
   status,
@@ -35,7 +35,7 @@ const RagStatus = () => {
   });
 
   return (
-    <div className="p-2 bg-retroDark-100 rounded-lg border border-retroDark-500">
+    <div className="p-2 bg-retroDark-300 rounded-lg border border-retroDark-200">
       {error && (
         <div className="flex items-center gap-2 text-red-700">
           <div className="h-2 w-2 rounded-full bg-alert" />
@@ -44,7 +44,7 @@ const RagStatus = () => {
       )}
       {isLoading && (
         <div className="flex items-center gap-2">
-          <FaRotate className="h-4 w-4 animate-spin" />
+          <AiOutlineLoading className="h-4 w-4 animate-spin" />
           <span className="text-xs">Checking status...</span>
         </div>
       )}
