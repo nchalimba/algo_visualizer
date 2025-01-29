@@ -112,18 +112,7 @@ export type ChatResponse = {
   text: string;
   error?: string;
 };
-/*
-return {
-            "llm_provider": app_config.model.llm_provider,
-            "llm": app_config.model.llm_model,
-            "embedding_model": app_config.model.embedding_model,
-            "rag_version": app_config.info.version,
-            "chunk_size": app_config.chunk_size,
-            "chunk_overlap": app_config.chunk_overlap,
-            "vector_dimension": app_config.vector_db.vector_dimension,
-            "sources": self.vector_store.get_distinct_sources()
-        }
-*/
+
 export type InfoResponse = {
   llm_provider: string;
   llm: string;
@@ -134,3 +123,14 @@ export type InfoResponse = {
   vector_dimension: number;
   sources: string[];
 };
+
+export type TextIndexRequest = {
+  title: string;
+  text: string;
+};
+
+export type UrlIndexRequest = {
+  urls: string[];
+};
+
+export type IndexSourceType = "text" | "url" | "pdf";

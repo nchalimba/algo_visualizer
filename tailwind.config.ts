@@ -39,6 +39,30 @@ export default {
       fontFamily: {
         retro: ["'Oxanium'", "cursive"], // Retro font
       },
+      animation: {
+        "fade-in": "fade-in 0.3s ease-in-out",
+        "fade-in-down": "fade-in-down 0.3s ease-in-out",
+      },
+      keyframes: {
+        "fade-in": {
+          "0%": {
+            opacity: "0",
+          },
+          "100%": {
+            opacity: "1",
+          },
+        },
+        "fade-in-down": {
+          "0%": {
+            opacity: "0",
+            transform: "translate3d(0, -100%, 0)",
+          },
+          "100%": {
+            opacity: "1",
+            transform: "translate3d(0, 0, 0)",
+          },
+        },
+      },
     },
   },
   plugins: [],

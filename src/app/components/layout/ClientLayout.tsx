@@ -5,6 +5,7 @@ import { FaBars, FaSitemap, FaRoute, FaSignal } from "react-icons/fa";
 import { FaGear, FaHouse, FaMessage, FaRobot, FaXmark } from "react-icons/fa6";
 import { usePathname } from "next/navigation";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import ToastContainer from "../common/ToastContainer";
 
 const menuItems = [
   { name: "Home", href: "/", icon: FaHouse },
@@ -27,7 +28,7 @@ export default function ClientLayout({
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* <ChatBot /> */}
+      <ToastContainer />
       <div className="flex h-screen relative">
         {/* Sidebar */}
         <aside
