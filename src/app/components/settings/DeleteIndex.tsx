@@ -1,26 +1,32 @@
 import React, { useState } from "react";
 import Button from "../common/Button";
 import TextField from "../common/TextField";
-import DeleteConfirmationModal from "./DeleteConfirmationModal";
+import DeleteConfirmationModal from "../common/DeleteConfirmationModal";
 import { useMutation } from "@tanstack/react-query";
 import { deleteIndex } from "@/api/vectorIndex";
 import toast from "react-hot-toast";
 import { getDeleteIndexSchema } from "@/utils/validationSchemas";
+import { useAuth } from "@/app/context/AuthContext";
+import InfoMessage from "../chat/InfoMessage";
+import { ADMIN_ACCESS_MESSAGE } from "@/utils/constants";
 
 const DeleteIndex = () => {
-  const [indexTitleOrUrl, setIndexTitleOrUrl] = useState("");
+  const [titleOrUrl, setTitleOrUrl] = useState("");
   const [isModalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const { jwt, isAuthenticated } = useAuth();
 
   const handleDelete = () => {
     setModalOpen(false);
     setLoading(true);
-    deleteIndexMutation.mutate(indexTitleOrUrl);
+    if (!jwt) return toast.error(ADMIN_ACCESS_MESSAGE);
+    deleteIndexMutation.mutate({ titleOrUrl: titleOrUrl, jwt });
   };
 
   const handleClickDelete = () => {
     const schema = getDeleteIndexSchema();
-    const result = schema.safeParse({ titleOrUrl: indexTitleOrUrl });
+    const result = schema.safeParse({ titleOrUrl: titleOrUrl });
     if (!result.success) {
       const errors = Object.values(result.error.flatten().fieldErrors)
         .flat()
@@ -38,13 +44,13 @@ const DeleteIndex = () => {
       toast.success("Index deleted successfully!");
       setModalOpen(false);
       setLoading(false);
-      setIndexTitleOrUrl("");
+      setTitleOrUrl("");
     },
     onError: (error) => {
       console.error(error);
       toast.error("Error deleting index!");
       setLoading(false);
-      setIndexTitleOrUrl("");
+      setTitleOrUrl("");
     },
   });
 
@@ -52,24 +58,32 @@ const DeleteIndex = () => {
     <div>
       <h2 className="text-lg font-semibold mb-2">Delete Index</h2>
       <div className="mb-4">
-        <label className="text-gray-400 text-sm">Title / URL:</label>
         <TextField
-          value={indexTitleOrUrl}
-          onChange={(e) => setIndexTitleOrUrl(e.target.value)}
+          label="Title / URL"
+          value={titleOrUrl}
+          onChange={(e) => setTitleOrUrl(e.target.value)}
           placeholder="Enter Title or URL"
+          fullWidth
         />
-        <div className="flex justify-end mt-4">
-          <Button loading={loading} onClick={handleClickDelete} error>
+        <div className="flex justify-end items-center gap-4 mt-4">
+          {!isAuthenticated && <InfoMessage message={ADMIN_ACCESS_MESSAGE} />}
+          <Button
+            loading={loading}
+            onClick={handleClickDelete}
+            type="error"
+            disabled={!isAuthenticated}
+          >
             Delete
           </Button>
         </div>
       </div>
 
       <DeleteConfirmationModal
+        type="index"
         isOpen={isModalOpen}
         onClose={() => setModalOpen(false)}
         onConfirm={() => handleDelete()}
-        indexTitleOrUrl={indexTitleOrUrl}
+        indexTitleOrUrl={titleOrUrl}
       />
     </div>
   );

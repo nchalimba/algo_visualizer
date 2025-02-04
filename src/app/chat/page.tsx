@@ -5,9 +5,7 @@ import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import RagStatus from "../components/chat/RagStatus";
 import { getMessages, handleMessageStream, sendMessage } from "@/api/message";
 import { ChatMessage } from "../types";
-import Message from "../components/chat/Message";
 import InputContainer from "../components/chat/InputContainer";
-import ErrorMessage from "../components/chat/ErrorMessage";
 import DeleteButton from "../components/chat/DeleteButton";
 import MessageContainer from "../components/chat/MessageContainer";
 
@@ -15,6 +13,7 @@ const ChatBotPage = () => {
   const queryClient = useQueryClient();
   const inputRef = useRef<HTMLInputElement>(null);
   const [errorMessage, setErrorMessage] = useState("");
+  const [loadingButton, setLoadingButton] = useState(false);
 
   const optimisticUpdate = async (message: string) => {
     await queryClient.cancelQueries({ queryKey: ["messages"] });
@@ -59,14 +58,27 @@ const ChatBotPage = () => {
     onMutate: optimisticUpdate,
     mutationFn: sendMessage,
     onSuccess: (response) =>
-      handleMessageStream(response, updateMessage, () => {
-        queryClient.invalidateQueries({ queryKey: ["messages"] });
-      }),
-    onError: (error) => setErrorMessage(error.message),
+      handleMessageStream(response, updateMessage, () =>
+        queryClient.invalidateQueries({ queryKey: ["messages"] })
+      ),
+    onError: (error) => {
+      setErrorMessage(error.message);
+      // delete the message with loading: true
+      queryClient.cancelQueries({ queryKey: ["messages"] });
+      const previousMessages = queryClient.getQueryData<ChatMessage[]>([
+        "messages",
+      ]);
+      const updatedMessages = previousMessages?.filter(
+        (message) => !message.loading
+      );
+      queryClient.setQueryData(["messages"], updatedMessages);
+    },
+    onSettled: () => setLoadingButton(false),
   });
 
   const handleSend = async (event: React.FormEvent) => {
     event.preventDefault();
+    setLoadingButton(true);
     const input = inputRef.current;
     if (!input) return;
     const message = input.value;
@@ -89,7 +101,11 @@ const ChatBotPage = () => {
 
       <MessageContainer errorMessage={errorMessage} />
 
-      <InputContainer handleSend={handleSend} inputRef={inputRef} />
+      <InputContainer
+        handleSend={handleSend}
+        inputRef={inputRef}
+        loadingButton={loadingButton}
+      />
     </div>
   );
 };

@@ -6,6 +6,11 @@ import { useMutation } from "@tanstack/react-query";
 import { createIndex } from "@/api/vectorIndex";
 import { IndexSourceType } from "@/app/types";
 import { getCreateIndexSchema } from "@/utils/validationSchemas";
+import { useAuth } from "@/app/context/AuthContext";
+import WarningMessage from "../chat/WarningMessage";
+import InfoMessage from "../chat/InfoMessage";
+import ErrorMessage from "../chat/ErrorMessage";
+import { ADMIN_ACCESS_MESSAGE } from "@/utils/constants";
 
 const CreateIndex = () => {
   const [indexType, setIndexType] = useState<IndexSourceType>("url");
@@ -14,6 +19,7 @@ const CreateIndex = () => {
   const [pdfFile, setPdfFile] = useState<File | null | undefined>(null);
   const [textContent, setTextContent] = useState("");
   const [loading, setLoading] = useState(false);
+  const { isAuthenticated, jwt } = useAuth();
 
   const clearForm = () => {
     setUrl("");
@@ -40,6 +46,7 @@ const CreateIndex = () => {
       console.log(result.error);
       return;
     }
+    if (!jwt) return toast.error(ADMIN_ACCESS_MESSAGE);
     setLoading(true);
     clearForm();
 
@@ -48,6 +55,7 @@ const CreateIndex = () => {
       titleOrUrl: indexType === "url" ? url : title,
       text: indexType === "text" ? textContent : undefined,
       file: indexType === "pdf" ? pdfFile : undefined,
+      jwt,
     });
   };
 
@@ -91,21 +99,23 @@ const CreateIndex = () => {
       </div>
       {indexType === "url" && (
         <div className="mb-4">
-          <label className="text-gray-400 text-sm">Enter URL:</label>
           <TextField
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             placeholder="Enter URL"
+            fullWidth
+            label="Enter URL"
           />
         </div>
       )}
       {(indexType === "text" || indexType === "pdf") && (
         <div className="mb-4">
-          <label className="text-gray-400 text-sm">Enter Title:</label>
           <TextField
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Enter Title"
+            fullWidth
+            label="Enter Title"
           />
         </div>
       )}
@@ -145,17 +155,23 @@ const CreateIndex = () => {
       )}
       {indexType === "text" && (
         <div className="mb-4">
-          <label className="text-gray-400 text-sm">Enter Text:</label>
           <TextField
             value={textContent}
             onChange={(e) => setTextContent(e.target.value)}
             placeholder="Enter Text"
             isTextArea
+            fullWidth
+            label="Enter Text"
           />
         </div>
       )}
-      <div className="flex justify-end">
-        <Button onClick={handleSubmit} loading={loading}>
+      <div className="flex justify-end items-center gap-4">
+        {!isAuthenticated && <InfoMessage message={ADMIN_ACCESS_MESSAGE} />}
+        <Button
+          onClick={handleSubmit}
+          loading={loading}
+          disabled={!isAuthenticated}
+        >
           Submit
         </Button>
       </div>

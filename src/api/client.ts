@@ -7,8 +7,8 @@ const apiClient = axios.create({
 
 apiClient.interceptors.request.use(
   (config) => {
-    const userId = "123"; //getUserId(); // Always fetch the latest user ID
-    console.log("Setting X-User-ID:", userId)
+    const userId = getUserId(); //"123"; //getUserId(); // Always fetch the latest user ID
+    console.log("Setting X-User-ID:", userId);
     if (userId) {
       config.headers["X-User-ID"] = userId;
     } else {

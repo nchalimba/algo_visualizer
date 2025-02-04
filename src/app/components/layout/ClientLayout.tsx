@@ -1,11 +1,12 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { FaBars, FaSitemap, FaRoute, FaSignal } from "react-icons/fa";
 import { FaGear, FaHouse, FaMessage, FaRobot, FaXmark } from "react-icons/fa6";
 import { usePathname } from "next/navigation";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ToastContainer from "../common/ToastContainer";
+import { getHealthStatus } from "@/api/health";
 
 const menuItems = [
   { name: "Home", href: "/", icon: FaHouse },
@@ -25,6 +26,17 @@ export default function ClientLayout({
 }>) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const pathname = usePathname();
+
+  useEffect(() => {
+    const fetchHealthStatus = async () => {
+      try {
+        await getHealthStatus(); // Call the health status API once
+      } catch (error) {
+        console.error("Failed to fetch health status:", error);
+      }
+    };
+    fetchHealthStatus();
+  }, []); // Empty dependency array ensures this runs once on mount
 
   return (
     <QueryClientProvider client={queryClient}>

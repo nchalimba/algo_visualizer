@@ -20,6 +20,8 @@ export default {
       colors: {
         highlight: "#9ca9ff", // Custom vibrant purple
         alert: "#DC2626", // Custom red color for alerts/errors
+        warning: "#FF7F50", // Retro coral orange for warnings
+        info: "#5B7AAE", // Muted steel blue for info messages
         retroDark: {
           100: "#0d0e1c", // Very dark blue-gray background (almost black)
           200: "#10182a", // Darker blue-gray for subtle contrast

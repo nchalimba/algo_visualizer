@@ -1,5 +1,6 @@
 import { ChatMessage, ChatResponse } from "@/app/types";
 import apiClient from "./client";
+import { getUserId } from "@/utils/utils";
 
 export const getMessages = async () => {
   const response = await apiClient.get("/message/");
@@ -16,6 +17,8 @@ export const sendMessage = async (message: string) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Accept: "application/json",
+      "X-User-ID": getUserId(),
     },
     body: JSON.stringify({ question: message }),
   });

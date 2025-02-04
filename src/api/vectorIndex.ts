@@ -6,6 +6,12 @@ type CreateIndexInput = {
   titleOrUrl: string;
   text?: string;
   file?: File | null;
+  jwt: string;
+};
+
+type DeleteIndexInput = {
+  titleOrUrl: string;
+  jwt: string;
 };
 
 const createBody = ({ type, titleOrUrl, text, file }: CreateIndexInput) => {
@@ -28,14 +34,23 @@ const createBody = ({ type, titleOrUrl, text, file }: CreateIndexInput) => {
 export const createIndex = async (input: CreateIndexInput) => {
   const body = createBody(input);
 
-  const response = await apiClient.post(`/process/${input.type}`, body);
+  const response = await apiClient.post(`/process/${input.type}`, body, {
+    headers: {
+      Authorization: `Bearer ${input.jwt}`,
+    },
+  });
   return response.data;
 };
 
 // Function to delete an index
-export const deleteIndex = async (indexLabel: string) => {
+export const deleteIndex = async ({ titleOrUrl, jwt }: DeleteIndexInput) => {
   const response = await apiClient.delete(
-    `/process/?source_label=${indexLabel}`
+    `/process/?source_label=${titleOrUrl}`,
+    {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    }
   );
   return response.data;
 };

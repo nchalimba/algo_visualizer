@@ -1,7 +1,5 @@
 import React from "react";
 import { clsx } from "clsx";
-import { FaSpinner } from "react-icons/fa";
-import { FaHurricane } from "react-icons/fa6";
 import { AiOutlineLoading } from "react-icons/ai";
 
 type Props = {
@@ -11,8 +9,8 @@ type Props = {
     | ((event: React.FormEvent) => Promise<void>);
   disabled?: boolean;
   active?: boolean;
-  error?: boolean;
   loading?: boolean;
+  type?: "default" | "error" | "text";
 };
 
 const Button = ({
@@ -20,16 +18,17 @@ const Button = ({
   onClick,
   disabled = false,
   active = false,
-  error = false,
   loading = false,
+  type = "default",
 }: Props) => {
   const buttonClasses = clsx(
-    "relative flex items-center gap-3 px-4 py-2 text-white rounded disabled:bg-gray-500 transition duration-300 ease-in-out",
+    "relative flex items-center gap-3 px-4 py-2 rounded disabled:bg-gray-500 transition duration-300 ease-in-out h-10",
     {
-      "bg-retroDark-accent-active": active,
-      "bg-red-500 hover:bg-red-600": error,
-      "bg-retroDark-accent": !error && !active,
-      "hover:bg-retroDark-accent-hover": !error,
+      "bg-retroDark-accent-active text-white": active,
+      "bg-red-500 hover:bg-red-600 text-white": type === "error",
+      "bg-retroDark-accent text-white": type === "default" && !active,
+      "hover:bg-retroDark-accent-hover text-white": type === "default",
+      "text-white bg-transparent hover:text-gray-300": type === "text",
     }
   );
 

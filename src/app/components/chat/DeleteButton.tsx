@@ -3,12 +3,13 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { deleteMessages, getMessages } from "@/api/message";
 import Button from "../common/Button";
 import { FaTrash } from "react-icons/fa";
+import DeleteConfirmationModal from "../common/DeleteConfirmationModal";
+import { useState } from "react";
+import useMessages from "@/hooks/useMessages";
 
 const DeleteButton = () => {
-  const { data: messages } = useQuery({
-    queryKey: ["messages"],
-    queryFn: getMessages,
-  });
+  const [isOpen, setIsOpen] = useState(false);
+  const { messages } = useMessages();
 
   const disabled = !messages || messages.length === 0;
 
@@ -22,10 +23,17 @@ const DeleteButton = () => {
 
   const handleDelete = () => {
     deleteMessagesMutation.mutate();
+    setIsOpen(false);
   };
 
   return (
-    <Button error onClick={handleDelete} disabled={disabled}>
+    <Button type="error" onClick={() => setIsOpen(true)} disabled={disabled}>
+      <DeleteConfirmationModal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        type="conversation"
+        onConfirm={handleDelete}
+      />
       <FaTrash />
     </Button>
   );
