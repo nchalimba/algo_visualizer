@@ -26,7 +26,7 @@ const TextField: React.FC<TextFieldProps> = ({
   const [showPassword, setShowPassword] = useState(false);
 
   const inputClasses = clsx(
-    "p-3 bg-retroDark-300 text-retroText.primary rounded-lg focus:outline-none focus:ring-2 focus:ring-retroDark-accent",
+    "p-3 bg-retroDark-350 text-retroText.primary rounded-lg focus:outline-none focus:ring-2 focus:ring-retroDark-accent",
     {
       "w-full": fullWidth,
       "pr-10": password,

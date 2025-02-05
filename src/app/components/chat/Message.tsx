@@ -2,13 +2,8 @@ import { ChatMessage } from "@/app/types";
 import React, { useState } from "react";
 import clsx from "clsx";
 import MarkdownContainer from "../common/MarkdownContainer";
-import {
-  FaArrowDown,
-  FaArrowUp,
-  FaChevronDown,
-  FaChevronUp,
-  FaExternalLinkAlt,
-} from "react-icons/fa";
+import { FaChevronDown, FaChevronUp, FaExternalLinkAlt } from "react-icons/fa";
+import Link from "next/link";
 
 type MessageProps = {
   message: ChatMessage;
@@ -18,7 +13,7 @@ const Message: React.FC<MessageProps> = ({ message }) => {
   const [showSources, setShowSources] = useState(false);
 
   const messageClasses = clsx(
-    "text-retroText.primary p-3 rounded-lg max-w-[min(80%,1000px)] break-words",
+    "text-retroText.primary p-3 rounded-lg max-w-[min(85%,1000px)] break-words",
     {
       "bg-retroDark-400": message.type === "user",
       "bg-retroDark-300": message.type !== "user",
@@ -69,9 +64,12 @@ const Message: React.FC<MessageProps> = ({ message }) => {
                     {message.sources.map((source, index) => {
                       const isSourceUrl = isUrl(source.source_label);
                       return (
-                        <div key={source.source_key} className="mt-1 first:mt-0">
+                        <div
+                          key={source.source_key}
+                          className="mt-1 first:mt-0"
+                        >
                           {isSourceUrl ? (
-                            <a
+                            <Link
                               href={source.source_label}
                               target="_blank"
                               rel="noopener noreferrer"
@@ -79,7 +77,7 @@ const Message: React.FC<MessageProps> = ({ message }) => {
                             >
                               {source.source_label}
                               <FaExternalLinkAlt className="ml-1 w-3 h-3" />
-                            </a>
+                            </Link>
                           ) : (
                             source.source_label
                           )}

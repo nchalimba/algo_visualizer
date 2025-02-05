@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
+import { useState, useRef } from "react";
+import { useQueryClient, useMutation } from "@tanstack/react-query";
 import RagStatus from "../components/chat/RagStatus";
-import { getMessages, handleMessageStream, sendMessage } from "@/api/message";
+import { handleMessageStream, sendMessage } from "@/api/message";
 import { ChatMessage } from "../types";
 import InputContainer from "../components/chat/InputContainer";
 import DeleteButton from "../components/chat/DeleteButton";
@@ -87,7 +87,7 @@ const ChatBotPage = () => {
   };
 
   return (
-    <div className="h-[calc(100vh-theme(spacing.12))] md:h-[calc(100vh-theme(spacing.12))] flex flex-col bg-retroDark-100">
+    <div className="h-[calc(100vh-theme(spacing.2))] md:h-[calc(100vh-theme(spacing.12))] flex flex-col bg-retroDark-100">
       {/* Header */}
       <div className="flex justify-between items-center p-2 border-b border-retroDark-200">
         <h1 className="text-xl text-retroText.primary font-retro">

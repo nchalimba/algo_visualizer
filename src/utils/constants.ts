@@ -1,2 +1,1 @@
-export const ADMIN_ACCESS_MESSAGE =
-  "You need to have admin access to perform that action.";
+export const ADMIN_ACCESS_MESSAGE = "This action requires admin access.";

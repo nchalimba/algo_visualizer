@@ -37,8 +37,8 @@ const IndexingTab: React.FC = () => {
   };
 
   return (
-    <div className="p-4 pt-0 flex flex-col gap-6">
-      <div className="flex gap-4 self-end items-end">
+    <div className="pt-0 flex flex-col gap-6">
+      <div className="flex flex-col md:flex-row gap-4 md:self-end md:items-end">
         <div className="flex-1">
           <TextField
             password
@@ -49,14 +49,18 @@ const IndexingTab: React.FC = () => {
           />
         </div>
 
-        <Button loading={loading} onClick={handleSubmitKey}>
+        <Button
+          loading={loading}
+          onClick={handleSubmitKey}
+          className="w-full md:w-auto font-bold"
+        >
           Submit
         </Button>
       </div>
-
-      <CreateIndex />
-      <div className="bg-opacity-5 border-alert p-4 pt-0 border-2 rounded border-opacity-50">
-        <p className="font-bold text-alert mb-2">Danger Zone</p>
+      <div className="bg-retroDark-200 p-4 rounded-xl">
+        <CreateIndex />
+      </div>
+      <div className="bg-retroDark-200 p-4 rounded-xl">
         <DeleteIndex />
       </div>
     </div>

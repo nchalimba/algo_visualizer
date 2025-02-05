@@ -1,9 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import debounce from "lodash.debounce";
-import ErrorMessage from "./ErrorMessage";
 import Message from "./Message";
 import LoadingIndicator from "../common/LoadingIndicator";
 import useMessages from "@/hooks/useMessages";
+import Alert from "../common/Alert";
+import clsx from "clsx";
 
 type Props = {
   errorMessage: string | null;
@@ -37,18 +38,17 @@ const MessageContainer = ({ errorMessage }: Props) => {
   if (loadingError) {
     return (
       <div className="flex-grow flex items-center justify-center space-x-3 my-5">
-        <ErrorMessage message="Error: could not fetch messages" />
+        <Alert type="error" message="Error: could not fetch messages" />
       </div>
     );
   }
+  const containerClasses = clsx("flex-grow space-y-2 px-2 md:px-2", {
+    "overflow-hidden": !messages || messages.length === 0,
+    "overflow-auto": messages && messages.length > 0,
+  });
 
   return (
-    <div
-      ref={containerRef}
-      className={`flex-grow ${
-        !messages || messages.length === 0 ? "overflow-hidden" : "overflow-auto"
-      } space-y-2`}
-    >
+    <div ref={containerRef} className={containerClasses}>
       {!messages || messages.length === 0 ? (
         <p className="text-gray-400 italic flex h-full items-center justify-center p-6 text-center text-lg">
           Hi there, I&apos;m your AI assistant! Ask me anything related to data
@@ -61,7 +61,7 @@ const MessageContainer = ({ errorMessage }: Props) => {
       )}
       {errorMessage && (
         <div className="my-5 mx-1">
-          <ErrorMessage message={errorMessage} />
+          <Alert type="error" message={errorMessage} />
         </div>
       )}
       <div className="h-2" ref={messagesEndRef} />

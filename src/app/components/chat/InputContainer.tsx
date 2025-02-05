@@ -23,7 +23,7 @@ const InputContainer: React.FC<InputContainerProps> = ({
 
   return (
     <div className="flex-none border-t border-retroDark-200">
-      <div className="flex items-center space-x-2 bg-retroDark-200 p-2 rounded-lg">
+      <div className="flex items-center space-x-2 bg-retroDark-100 p-2 rounded-lg">
         <input
           type="text"
           ref={inputRef}

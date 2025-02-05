@@ -26,6 +26,7 @@ export default {
           100: "#0d0e1c", // Very dark blue-gray background (almost black)
           200: "#10182a", // Darker blue-gray for subtle contrast
           300: "#141f38", // Deeper, darker blue-gray for shadows
+          350: "#1b294d", // Darker blue-gray for contrast
           400: "#3a4a75", // Darker medium blue-gray for softer contrast
           500: "#6071a1", // Retro blue, a bit muted but still noticeable
           accent: "#7189FF", // Neon blue accent (same as before for that Pac-Man glow)

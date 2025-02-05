@@ -7,8 +7,8 @@ import { deleteIndex } from "@/api/vectorIndex";
 import toast from "react-hot-toast";
 import { getDeleteIndexSchema } from "@/utils/validationSchemas";
 import { useAuth } from "@/app/context/AuthContext";
-import InfoMessage from "../chat/InfoMessage";
 import { ADMIN_ACCESS_MESSAGE } from "@/utils/constants";
+import Alert from "../common/Alert";
 
 const DeleteIndex = () => {
   const [titleOrUrl, setTitleOrUrl] = useState("");
@@ -65,13 +65,20 @@ const DeleteIndex = () => {
           placeholder="Enter Title or URL"
           fullWidth
         />
-        <div className="flex justify-end items-center gap-4 mt-4">
-          {!isAuthenticated && <InfoMessage message={ADMIN_ACCESS_MESSAGE} />}
+        <div className="flex flex-col md:flex-row md:justify-end items-center gap-4 mt-4">
+          {!isAuthenticated && (
+            <Alert
+              type="info"
+              message={ADMIN_ACCESS_MESSAGE}
+              className="w-full"
+            />
+          )}
           <Button
             loading={loading}
             onClick={handleClickDelete}
             type="error"
             disabled={!isAuthenticated}
+            className="w-full md:w-auto font-bold"
           >
             Delete
           </Button>

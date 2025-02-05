@@ -11,33 +11,35 @@ const SettingsPage = () => {
   return (
     <AuthProvider>
       <div className="container mx-auto">
-        <div className="flex justify-between items-center p-2 border-b border-retroDark-200">
-          <h1 className="text-xl text-retroText.primary font-retro">
-            Settings
-          </h1>
-          <RagStatus />
-        </div>
-        {/* Tabs */}
-        <div className="flex space-x-4 p-4">
-          <button
-            className={`py-2 px-4 rounded-lg ${
-              activeTab === "info" ? "bg-retroDark-200" : "bg-transparent"
-            }`}
-            onClick={() => setActiveTab("info")}
-          >
-            Info
-          </button>
-          <button
-            className={`py-2 px-4 rounded-lg ${
-              activeTab === "indexing" ? "bg-retroDark-200" : "bg-transparent"
-            }`}
-            onClick={() => setActiveTab("indexing")}
-          >
-            Indexing
-          </button>
+        <div className="settings-header sticky top-0 bg-retroDark-100 z-10">
+          <div className="flex justify-between items-center p-2 border-b border-retroDark-200">
+            <h1 className="text-xl text-retroText.primary font-retro">
+              Settings
+            </h1>
+            <RagStatus />
+          </div>
+          {/* Tabs */}
+          <div className="flex space-x-4 p-4 pb-2 sticky top-0 bg-retroDark-100 z-10">
+            <button
+              className={`py-2 px-4 rounded-lg ${
+                activeTab === "info" ? "bg-retroDark-200" : "bg-transparent"
+              }`}
+              onClick={() => setActiveTab("info")}
+            >
+              Info
+            </button>
+            <button
+              className={`py-2 px-4 rounded-lg ${
+                activeTab === "indexing" ? "bg-retroDark-200" : "bg-transparent"
+              }`}
+              onClick={() => setActiveTab("indexing")}
+            >
+              Indexing
+            </button>
+          </div>
         </div>
         {/* Tab Content */}
-        <div className="p-4">
+        <div className="p-4 pt-2">
           {activeTab === "info" && <InfoTab />}
           {activeTab === "indexing" && <IndexingTab />}
         </div>

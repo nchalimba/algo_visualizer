@@ -7,10 +7,8 @@ import { createIndex } from "@/api/vectorIndex";
 import { IndexSourceType } from "@/app/types";
 import { getCreateIndexSchema } from "@/utils/validationSchemas";
 import { useAuth } from "@/app/context/AuthContext";
-import WarningMessage from "../chat/WarningMessage";
-import InfoMessage from "../chat/InfoMessage";
-import ErrorMessage from "../chat/ErrorMessage";
 import { ADMIN_ACCESS_MESSAGE } from "@/utils/constants";
+import Alert from "../common/Alert";
 
 const CreateIndex = () => {
   const [indexType, setIndexType] = useState<IndexSourceType>("url");
@@ -124,9 +122,9 @@ const CreateIndex = () => {
           <label className="text-gray-400 text-sm" htmlFor="file-upload">
             Upload File:
           </label>
-          <div className="flex items-center">
+          <div className="flex flex-col md:flex-row items-center">
             <label
-              className="bg-retroDark-accent hover:bg-retroDark-accent-hover cursor-pointer px-4 py-2 text-white rounded transition duration-300 ease-in-out"
+              className="bg-retroDark-accent hover:bg-retroDark-accent-hover cursor-pointer px-4 py-2 text-white rounded transition duration-300 ease-in-out w-full md:w-auto flex justify-center"
               htmlFor="file-upload"
             >
               Upload file
@@ -149,7 +147,9 @@ const CreateIndex = () => {
               }}
               className="hidden"
             />
-            {pdfFile && <span className="ml-2">{pdfFile.name}</span>}
+            {pdfFile && (
+              <span className="md:ml-2 md:mt-0 mt-2">{pdfFile.name}</span>
+            )}
           </div>
         </div>
       )}
@@ -165,12 +165,19 @@ const CreateIndex = () => {
           />
         </div>
       )}
-      <div className="flex justify-end items-center gap-4">
-        {!isAuthenticated && <InfoMessage message={ADMIN_ACCESS_MESSAGE} />}
+      <div className="flex flex-col md:flex-row md:justify-end items-center gap-4">
+        {!isAuthenticated && (
+          <Alert
+            type="info"
+            message={ADMIN_ACCESS_MESSAGE}
+            className="w-full"
+          />
+        )}
         <Button
           onClick={handleSubmit}
           loading={loading}
           disabled={!isAuthenticated}
+          className="w-full md:w-auto font-bold"
         >
           Submit
         </Button>

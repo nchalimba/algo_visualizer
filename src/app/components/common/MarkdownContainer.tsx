@@ -41,7 +41,6 @@ const MarkdownContainer = ({ content }: Props) => {
                   margin: "0",
                   overflow: "scroll",
                 }}
-                showLineNumbers
                 language={match[1]}
                 style={coldarkDark}
               >
