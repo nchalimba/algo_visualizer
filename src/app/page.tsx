@@ -3,6 +3,12 @@ import { FaArrowRight, FaPlay } from "react-icons/fa";
 
 const sections = [
   {
+    title: "AI Assistant",
+    description:
+      "NEW! Interact with the AI assistant, who is an expert in data structures and algorithms.",
+    link: "/chat",
+  },
+  {
     title: "Sorting Algorithms",
     description:
       "Visualize and interact with various sorting algorithms like Insertion Sort, Merge Sort, and more!",
@@ -11,14 +17,20 @@ const sections = [
   {
     title: "Pathfinding",
     description:
-      "Dive into the world of pathfinding algorithms, including Dijkstra’s and A*.",
+      "Dive into the world of pathfinding algorithms, including Dijkstra’s and A*. Also use Prims for generating mazes.",
     link: "/pathfinding",
   },
   {
     title: "Tree Traversal",
     description:
-      "Visualize tree traversal algorithms like Preorder, Inorder, and Postorder traversal.",
+      "Visualize tree traversal algorithms like Preorder, Inorder, Postorder and Level Order traversal.",
     link: "/tree-traversal",
+  },
+  {
+    title: "Settings",
+    description:
+      "See information about AI configuration and manage the AI sources (admin only).",
+    link: "/settings",
   },
 ];
 
@@ -42,16 +54,16 @@ export default function Home() {
         </Link>
       </header>
 
-      <section className="flex flex-col lg:flex-row gap-8">
+      <section className="flex flex-wrap justify-center items-stretch flex-col lg:flex-row gap-8">
         {sections.map((section, index) => (
           <div
             key={index}
-            className="w-full lg:w-1/3 text-center p-8 bg-retroDark-700 rounded-xl shadow-lg transform transition-all hover:scale-105"
+            className="w-full flex flex-col items-stretch flex-grow justify-stretch lg:w-[30%] h-full text-center p-8 bg-retroDark-200 rounded-xl shadow-lg transform transition-all hover:scale-105"
           >
-            <h2 className="lg:text-3xl text-2xl font-bold mb-4 text-retroText-accent">
+            <h2 className="lg:text-3xl h-full text-2xl font-bold mb-4 text-retroText-accent">
               {section.title}
             </h2>
-            <p className="lg:text-lg text-md text-retroText-light mb-6">
+            <p className="lg:text-lg h-full flex-1 text-md text-retroText-light mb-6">
               {section.description}
             </p>
             <Link
