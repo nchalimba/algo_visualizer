@@ -17,6 +17,9 @@ export default {
   ], // Ensure Tailwind compiles these
   theme: {
     extend: {
+      screens: {
+        xs: "450px",
+      },
       colors: {
         highlight: "#9ca9ff", // Custom vibrant purple
         alert: "#DC2626", // Custom red color for alerts/errors

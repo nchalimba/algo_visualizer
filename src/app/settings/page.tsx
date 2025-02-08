@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import RagStatus from "../components/chat/RagStatus";
 import InfoTab from "../components/settings/InfoTab";
-import IndexingTab from "../components/settings/IndexingTab";
+import SourceTab from "../components/settings/SourceTab";
 import { AuthProvider } from "../context/AuthContext";
 
 const SettingsPage = () => {
@@ -30,18 +30,18 @@ const SettingsPage = () => {
             </button>
             <button
               className={`py-2 px-4 rounded-lg ${
-                activeTab === "indexing" ? "bg-retroDark-200" : "bg-transparent"
+                activeTab === "source" ? "bg-retroDark-200" : "bg-transparent"
               }`}
-              onClick={() => setActiveTab("indexing")}
+              onClick={() => setActiveTab("source")}
             >
-              Indexing
+              Source
             </button>
           </div>
         </div>
         {/* Tab Content */}
         <div className="p-4 pt-2">
           {activeTab === "info" && <InfoTab />}
-          {activeTab === "indexing" && <IndexingTab />}
+          {activeTab === "source" && <SourceTab />}
         </div>
       </div>
     </AuthProvider>

@@ -49,7 +49,7 @@ const RagStatus = () => {
         </div>
       )}
       {data && !error && (
-        <div className="flex gap-2">
+        <div className="flex flex-col xs:flex-row gap-2">
           <StatusIndicator
             status={data?.vector_store === "up"}
             label="Vector DB"

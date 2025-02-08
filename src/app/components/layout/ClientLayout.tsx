@@ -1,13 +1,17 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { FaBars, FaSitemap, FaRoute, FaSignal } from "react-icons/fa";
-import { FaGear, FaHouse, FaMessage, FaRobot, FaXmark } from "react-icons/fa6";
+import { FaSitemap, FaRoute, FaSignal } from "react-icons/fa";
+import { FaGear, FaHouse, FaRobot } from "react-icons/fa6";
 import { usePathname } from "next/navigation";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ToastContainer from "../common/ToastContainer";
 import { getHealthStatus } from "@/api/health";
-import clsx from "clsx";
+import {
+  TbLayoutSidebarLeftCollapseFilled,
+  TbLayoutSidebarLeftExpand,
+} from "react-icons/tb";
+import { twMerge } from "tailwind-merge";
 
 const menuItems = [
   { name: "Home", href: "/", icon: FaHouse },
@@ -25,7 +29,7 @@ export default function ClientLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -39,37 +43,22 @@ export default function ClientLayout({
     fetchHealthStatus();
   }, []); // Empty dependency array ensures this runs once on mount
 
-  const sidebarClasses = clsx(
-    "fixed top-0 left-0 p-2 h-full transition-all duration-300 ease-in-out z-20 rounded-lg md:relative md:w-64",
-    {
-      "w-64": isSidebarOpen,
-      "w-16": !isSidebarOpen,
-    }
+  const sidebarClasses = twMerge(
+    "fixed top-0 left-0 p-2 h-full transition-all duration-300 ease-in-out z-20 md:relative",
+    isSidebarOpen ? "w-64" : "w-16"
   );
-  const sidebarContainerClasses = clsx(
-    "p-1 relative bg-retroDark-300 h-full rounded-lg transition-all duration-300 ease-in-out z-20 md:w-64",
-    {
-      "w-64": isSidebarOpen,
-      "w-16": !isSidebarOpen,
-    }
+
+  const sidebarContainerClasses = twMerge(
+    "p-1 relative bg-retroDark-300 h-full rounded-3xl transition-all duration-300 ease-in-out z-20",
+    isSidebarOpen ? "w-64" : "w-16"
   );
 
   const sidebarLinkClasses = (href: string) =>
-    clsx(
-      "flex items-center gap-4 text-retroText-light hover:text-retroDark-accent transition-colors duration-300",
-      {
-        "justify-center md:justify-start": !isSidebarOpen,
-        "text-retroDark-accent font-bold": pathname === href, //TODO: this color is not working
-      }
+    twMerge(
+      "flex items-center justify-start gap-4 text-retroText-light hover:text-retroDark-accent transition-colors duration-300",
+      pathname === href && "text-retroDark-accent font-bold"
     );
 
-  const hamburgerClasses = clsx(
-    "absolute top-4  z-30 md:hidden text-retroDark-accent hover:text-retroDark-accent-hover transition-colors duration-300",
-    {
-      "left-4": isSidebarOpen,
-      "left-1/2 transform -translate-x-1/2": !isSidebarOpen,
-    }
-  );
   return (
     <QueryClientProvider client={queryClient}>
       <ToastContainer />
@@ -78,16 +67,21 @@ export default function ClientLayout({
         <aside className={sidebarClasses}>
           <div className={sidebarContainerClasses}>
             {/* Sidebar Header */}
-            <div className="p-4 flex items-center justify-end md:hidden">
-              <button
-                onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                className="text-retroDark-accent focus:outline-none hover:text-retroDark-accent-hover transition-colors duration-300"
-                aria-label={isSidebarOpen ? "Close sidebar" : "Open sidebar"}
+            <div
+              className={twMerge(
+                "text-retroDark-accent font-bold pt-4 pl-4 whitespace-nowrap overflow-hidden transition-colors duration-300 ease-in-out",
+                !isSidebarOpen && "text-retroDark-200"
+              )}
+            >
+              <p
+                className={
+                  isSidebarOpen
+                    ? "transition-colors"
+                    : "transition-colors text-retroDark-300"
+                }
               >
-                {isSidebarOpen && (
-                  <FaXmark className="text-2xl" aria-hidden="true" />
-                )}
-              </button>
+                Algo Visualizer
+              </p>
             </div>
 
             {/* Sidebar Content */}
@@ -98,19 +92,38 @@ export default function ClientLayout({
                   href={href}
                   className={sidebarLinkClasses(href)}
                 >
-                  <Icon className="text-xl" aria-hidden="true" />
-                  <span className={`${isSidebarOpen ? "" : "hidden md:block"}`}>
+                  <Icon
+                    className="h-6 w-6 min-h-6 min-w-6"
+                    aria-hidden="true"
+                  />
+                  <span
+                    className={twMerge(
+                      "whitespace-nowrap overflow-hidden transition-all duration-300",
+                      isSidebarOpen && "visible"
+                    )}
+                  >
                     {name}
                   </span>
                 </Link>
               ))}
             </nav>
+            {/* Hamburger Button */}
             <button
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-              className={hamburgerClasses}
+              className="absolute top-4 right-[18px] z-30 text-retroDark-accent hover:text-retroDark-accent-hover transition-all ease-in-out duration-300"
               aria-label={isSidebarOpen ? "Close sidebar" : "Open sidebar"}
             >
-              <FaBars className="text-2xl" aria-hidden="true" />
+              {isSidebarOpen ? (
+                <TbLayoutSidebarLeftCollapseFilled
+                  className="h-7 w-7 min-h-7 min-w-7"
+                  aria-hidden="true"
+                />
+              ) : (
+                <TbLayoutSidebarLeftExpand
+                  className="h-7 w-7 min-h-7 min-w-7"
+                  aria-hidden="true"
+                />
+              )}
             </button>
           </div>
         </aside>

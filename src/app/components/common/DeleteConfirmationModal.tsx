@@ -6,15 +6,15 @@ type Props = {
   isOpen: boolean;
   onClose: () => void;
   onConfirm: () => void;
-  indexTitleOrUrl?: string;
-  type: "index" | "conversation";
+  titleOrUrl?: string;
+  type: "source" | "conversation";
 };
 
 const DeleteConfirmationModal = ({
   isOpen,
   onClose,
   onConfirm,
-  indexTitleOrUrl,
+  titleOrUrl,
   type,
 }: Props) => {
   if (!isOpen) return null;
@@ -32,8 +32,8 @@ const DeleteConfirmationModal = ({
           </p>
           <p className="text-retroText.light">
             Are you sure you want to delete the{" "}
-            {type === "conversation" ? "conversation" : indexTitleOrUrl}? All
-            data will be permanently removed.
+            {type === "conversation" ? "conversation" : titleOrUrl}? All data
+            will be permanently removed.
           </p>
           <div className="flex gap-4">
             <Button type="text" onClick={() => onClose()}>

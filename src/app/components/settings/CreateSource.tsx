@@ -3,15 +3,15 @@ import Button from "../common/Button";
 import TextField from "../common/TextField";
 import toast from "react-hot-toast";
 import { useMutation } from "@tanstack/react-query";
-import { createIndex } from "@/api/vectorIndex";
-import { IndexSourceType } from "@/app/types";
-import { getCreateIndexSchema } from "@/utils/validationSchemas";
+import { createSource } from "@/api/source";
+import { SourceType } from "@/app/types";
+import { getCreateSourceSchema } from "@/utils/validationSchemas";
 import { useAuth } from "@/app/context/AuthContext";
 import { ADMIN_ACCESS_MESSAGE } from "@/utils/constants";
 import Alert from "../common/Alert";
 
-const CreateIndex = () => {
-  const [indexType, setIndexType] = useState<IndexSourceType>("url");
+const CreateSource = () => {
+  const [sourceType, setSourceType] = useState<SourceType>("url");
   const [url, setUrl] = useState("");
   const [title, setTitle] = useState("");
   const [pdfFile, setPdfFile] = useState<File | null | undefined>(null);
@@ -28,7 +28,7 @@ const CreateIndex = () => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    const schema = getCreateIndexSchema(indexType);
+    const schema = getCreateSourceSchema(sourceType);
 
     const result = schema.safeParse({
       title,
@@ -48,54 +48,54 @@ const CreateIndex = () => {
     setLoading(true);
     clearForm();
 
-    createIndexMutation.mutate({
-      type: indexType,
-      titleOrUrl: indexType === "url" ? url : title,
-      text: indexType === "text" ? textContent : undefined,
-      file: indexType === "pdf" ? pdfFile : undefined,
+    createSourceMutation.mutate({
+      type: sourceType,
+      titleOrUrl: sourceType === "url" ? url : title,
+      text: sourceType === "text" ? textContent : undefined,
+      file: sourceType === "pdf" ? pdfFile : undefined,
       jwt,
     });
   };
 
-  const createIndexMutation = useMutation({
-    mutationFn: createIndex,
+  const createSourceMutation = useMutation({
+    mutationFn: createSource,
     onSuccess: () => {
-      toast.success("Index created successfully!");
+      toast.success("Source created successfully!");
       setLoading(false);
     },
     onError: (error) => {
       console.error(error);
-      toast.error("Error creating index!");
+      toast.error("Error creating source!");
       setLoading(false);
     },
   });
 
   return (
     <div>
-      <h2 className="text-lg font-semibold mb-2">Create Index</h2>
+      <h2 className="text-lg font-semibold mb-2">Create Source</h2>
 
       <label className="text-gray-400 text-sm">Source Type:</label>
       <div className="mb-4 flex space-x-2">
         <Button
-          onClick={() => setIndexType("url")}
-          active={indexType === "url"}
+          onClick={() => setSourceType("url")}
+          active={sourceType === "url"}
         >
           URL
         </Button>
         <Button
-          onClick={() => setIndexType("text")}
-          active={indexType === "text"}
+          onClick={() => setSourceType("text")}
+          active={sourceType === "text"}
         >
           Text
         </Button>
         <Button
-          onClick={() => setIndexType("pdf")}
-          active={indexType === "pdf"}
+          onClick={() => setSourceType("pdf")}
+          active={sourceType === "pdf"}
         >
           PDF
         </Button>
       </div>
-      {indexType === "url" && (
+      {sourceType === "url" && (
         <div className="mb-4">
           <TextField
             value={url}
@@ -106,7 +106,7 @@ const CreateIndex = () => {
           />
         </div>
       )}
-      {(indexType === "text" || indexType === "pdf") && (
+      {(sourceType === "text" || sourceType === "pdf") && (
         <div className="mb-4">
           <TextField
             value={title}
@@ -117,7 +117,7 @@ const CreateIndex = () => {
           />
         </div>
       )}
-      {indexType === "pdf" && (
+      {sourceType === "pdf" && (
         <div className="mb-4">
           <label className="text-gray-400 text-sm" htmlFor="file-upload">
             Upload File:
@@ -153,7 +153,7 @@ const CreateIndex = () => {
           </div>
         </div>
       )}
-      {indexType === "text" && (
+      {sourceType === "text" && (
         <div className="mb-4">
           <TextField
             value={textContent}
@@ -186,4 +186,4 @@ const CreateIndex = () => {
   );
 };
 
-export default CreateIndex;
+export default CreateSource;

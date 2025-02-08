@@ -1,7 +1,7 @@
 import { z } from "zod";
 
-export const getCreateIndexSchema = (indexType: string) => {
-  switch (indexType) {
+export const getCreateSourceSchema = (sourceType: string) => {
+  switch (sourceType) {
     case "url":
       return z.object({
         url: z.string().url("Invalid URL format").min(1, "URL is required"),
@@ -23,7 +23,7 @@ export const getCreateIndexSchema = (indexType: string) => {
   }
 };
 
-export const getDeleteIndexSchema = () => {
+export const getDeleteSourceSchema = () => {
   return z.object({
     titleOrUrl: z.string().min(1, "Title or URL is required"),
   });

@@ -78,9 +78,9 @@ const ChatBotPage = () => {
 
   const handleSend = async (event: React.FormEvent) => {
     event.preventDefault();
-    setLoadingButton(true);
     const input = inputRef.current;
-    if (!input) return;
+    if (!input || !input.value) return;
+    setLoadingButton(true);
     const message = input.value;
     sendMessageMutation.mutate(message);
     input.value = "";

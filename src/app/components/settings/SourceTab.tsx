@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import CreateIndex from "./CreateIndex";
-import DeleteIndex from "./DeleteIndex";
+import CreateSource from "./CreateSource";
+import DeleteSource from "./DeleteSource";
 import TextField from "../common/TextField";
 import Button from "../common/Button";
 import { useAuth } from "@/app/context/AuthContext";
@@ -8,7 +8,7 @@ import { useMutation } from "@tanstack/react-query";
 import { login } from "@/api/auth";
 import toast from "react-hot-toast";
 
-const IndexingTab: React.FC = () => {
+const SourceTab: React.FC = () => {
   const [key, setKey] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -58,13 +58,13 @@ const IndexingTab: React.FC = () => {
         </Button>
       </div>
       <div className="bg-retroDark-200 p-4 rounded-xl">
-        <CreateIndex />
+        <CreateSource />
       </div>
       <div className="bg-retroDark-200 p-4 rounded-xl">
-        <DeleteIndex />
+        <DeleteSource />
       </div>
     </div>
   );
 };
 
-export default IndexingTab;
+export default SourceTab;

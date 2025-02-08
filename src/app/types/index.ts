@@ -133,4 +133,4 @@ export type UrlIndexRequest = {
   urls: string[];
 };
 
-export type IndexSourceType = "text" | "url" | "pdf";
+export type SourceType = "text" | "url" | "pdf";

@@ -25,11 +25,11 @@ const MessageContainer = ({ errorMessage }: Props) => {
 
   useEffect(() => {
     scrollToBottom();
-  }, []);
+  }, [scrollToBottom]);
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages]);
+  }, [messages, scrollToBottom]);
 
   if (isLoading) {
     return <LoadingIndicator />;
