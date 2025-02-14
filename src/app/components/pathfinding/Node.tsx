@@ -13,12 +13,12 @@ export const Node: React.FC<PathNode & { isMovable?: boolean; id: string }> = ({
   id,
 }) => {
   const nodeClasses = clsx(
-    "w-5 min-[450px]:w-6 min-[450px]:h-6 min-[550px]:w-8 min-[550px]:h-8 sm:w-9 sm:h-9 h-5 lg:w-12 lg:h-12 border lg:rounded-lg sm:rounded-md border-retroDark-100 flex items-center justify-center",
+    "w-5 min-[450px]:w-6 min-[450px]:h-6 min-[550px]:w-8 min-[550px]:h-8 sm:w-9 sm:h-9 h-5 lg:w-12 lg:h-12 border border-[0.5px] lg:rounded-lg sm:rounded-md border-retroDark-100 flex items-center justify-center transition duration-200 ease-in-out",
     {
       "bg-retroDark-400": isWall, // Wall styles take precedence
       "bg-retroDark-accent": !isWall && (isStart || isPath), // Path and start styles
       "bg-alert": !isWall && isEnd, // End node
-      "bg-gray-100": !isWall && isVisited && !isStart && !isEnd && !isPath, // Visited node
+      "bg-white/90": !isWall && isVisited && !isStart && !isEnd && !isPath, // Visited node
       "bg-retroDark-300":
         !isWall && !isStart && !isEnd && !isPath && !isVisited, // Default node
     },

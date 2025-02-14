@@ -18,14 +18,14 @@ const SortingPage = () => {
 
   useEffect(() => {
     const numbers = Array.from({ length: settings.length }, () => ({
-      value: Math.floor(Math.random() * 500),
+      value: Math.floor(Math.random() * 100),
       isActive: false,
     }));
     setElements(numbers);
   }, [settings.length, forceUpdate]);
 
   return (
-    <div className="h-screen">
+    <div className="h-screen md:h-[calc(100vh-48px)] flex flex-col">
       <Head>
         <title>Sorting Visualizer</title>
         <meta name="description" content="Visualizes sorting algorithms" />

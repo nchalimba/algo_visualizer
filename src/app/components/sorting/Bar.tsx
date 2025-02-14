@@ -19,7 +19,8 @@ const Bar = ({ bar, index, amountBars }: Props) => {
       id={`bar-${index}`}
       className={barClasses}
       style={{
-        height: `${bar.value}px`, // Height of the bar, grows downwards
+        //height is %
+        height: `${bar.value}%`, // Height of the bar, grows downwards
         width: `${100 / amountBars}%`, // Ensure bars are evenly spaced with no gap
       }}
     />

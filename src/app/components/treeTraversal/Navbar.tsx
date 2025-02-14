@@ -7,7 +7,6 @@ import {
   TreeTraversalSettings,
 } from "../../types";
 import Button from "../common/Button";
-import Select from "../common/Select";
 import Slider from "../common/Slider";
 import { FaPlay } from "react-icons/fa";
 import {
@@ -17,6 +16,7 @@ import {
 } from "@/utils/treeTraversal/dfs";
 import { animateTree } from "@/utils/treeTraversal/visualize";
 import { bfs } from "@/utils/treeTraversal/bfs";
+import Select from "../common/Select";
 
 type Props = {
   settings: TreeTraversalSettings;
@@ -46,7 +46,8 @@ const Navbar: React.FC<Props> = ({
   setTree,
   setVisitedArray,
 }) => {
-  const [disableButtons, setDisableButtons] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [disableButtons, setDisableButtons] = useState(true);
 
   const handleDelayChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSettings((prev) => ({ ...prev, delay: Number(event.target.value) }));
@@ -63,6 +64,7 @@ const Navbar: React.FC<Props> = ({
     value: TreeTraversalAlgo;
   }) => {
     setSettings((prev) => ({ ...prev, algo: value.value }));
+    setDisableButtons(false);
   };
 
   const updateNode = (index: number, isActive: boolean) => {
@@ -75,30 +77,34 @@ const Navbar: React.FC<Props> = ({
 
   const handleStart = () => {
     if (!settings.algo) return;
-    setDisableButtons(true);
+    setLoading(true);
     const visited: number[] = [];
     treeTraversalMap[settings.algo](tree, visited, 0);
     animateTree({
       visited,
       updateNode,
       setVisitedArray,
-      setDisableButtons,
+      setDisableButtons: setLoading,
       delay: settings.delay,
     });
   };
 
   return (
-    <nav className="p-4 bg-retroDark-200 text-white flex flex-col lg:flex-row lg:gap-4 items-center justify-between w-full">
+    <nav className="p-4 text-white flex flex-col lg:flex-row lg:gap-4 items-center justify-between w-full border-b border-retroDark-400">
       <div className="flex items-center space-x-4">
         {/* Select Algorithm */}
         <Select
           options={algoOptions}
-          value={algoOptions.find((option) => option.value === settings.algo)}
+          className="w-40 lg:w-40"
+          disabled={loading}
+          value={
+            algoOptions.find((option) => option.value === settings.algo) || null
+          }
           placeholder="Select algo..."
           onChange={(value) => handleAlgoChange(value)}
         />
 
-        <Button onClick={handleStart} disabled={disableButtons}>
+        <Button onClick={handleStart} disabled={disableButtons || loading}>
           <div className="flex items-center gap-2">
             <FaPlay className="text-xs" />
             <span className="hidden md:inline">Start</span>

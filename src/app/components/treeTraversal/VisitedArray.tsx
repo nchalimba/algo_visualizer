@@ -17,7 +17,7 @@ const VisitedArray: React.FC<Props> = ({ array }) => {
           {array.map((node, index) => (
             <div
               key={index}
-              className="bg-retroDark-accent text-white font-bold p-2 h-9 w-9 md:w-12 md:h-12 flex items-center justify-center rounded-full shadow-md hover:bg-retroDark-accent-hover transition text-md md:text-lg"
+              className="bg-retroDark-accent text-white font-bold p-2 h-9 w-9 md:w-12 md:h-12 flex items-center justify-center rounded-full shadow-md hover:bg-retroDark-accent-hover text-md md:text-lg"
             >
               {node}
             </div>

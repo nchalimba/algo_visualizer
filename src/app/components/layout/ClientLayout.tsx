@@ -77,7 +77,7 @@ export default function ClientLayout({
                 className={
                   isSidebarOpen
                     ? "transition-colors"
-                    : "transition-colors text-retroDark-300"
+                    : "transition-colors opacity-0"
                 }
               >
                 Algo Visualizer
