@@ -8,7 +8,8 @@ type Props = {
 
 const SortingElements: React.FC<Props> = ({ elements }) => {
   return (
-    <div className="relative w-full h-96 ">
+    // hight: 100vh - navbar height but navbar height changes with screen size
+    <div className="relative w-full h-full">
       {/* Bars */}
       <div className="flex items-start w-full h-full">
         {elements.map((element, index) => (

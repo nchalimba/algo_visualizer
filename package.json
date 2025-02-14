@@ -9,18 +9,27 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@nanostores/react": "github:ai/react",
-    "ai": "^4.0.18",
+    "@headlessui/react": "^2.2.0",
+    "@tanstack/react-query": "^5.64.2",
+    "axios": "^1.7.9",
     "clsx": "^2.1.1",
+    "lodash.debounce": "^4.0.8",
     "next": "15.0.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-icons": "^5.4.0"
+    "react-hot-toast": "^2.5.1",
+    "react-icons": "^5.4.0",
+    "react-markdown": "^9.0.3",
+    "react-syntax-highlighter": "^15.6.1",
+    "tailwind-merge": "^3.0.1",
+    "zod": "^3.24.1"
   },
   "devDependencies": {
+    "@types/lodash.debounce": "^4.0.9",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/react-syntax-highlighter": "^15.5.13",
     "eslint": "^8",
     "eslint-config-next": "15.0.4",
     "postcss": "^8",

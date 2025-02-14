@@ -11,6 +11,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Upcoming features and enhancements will be listed here. Stay tuned!
 
+## [2.1.0] - 2025-02-14
+
+### Added
+
+- **AI Assistant Chatbot 🤖**: I'm excited to introduce the new **AI Assistant**! It can now answer all your questions about data structures and algorithms, and provide code examples to help you out when needed.
+
+- **Settings Page ⚙️**: A new **Settings Page** is now available, where you can check the technical configuration of the AI. If you're an admin, you can also manage the sources the AI uses for generating responses.
+
 ## [2.0.0] - 2025-01-19
 
 ### Added

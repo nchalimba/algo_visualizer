@@ -16,7 +16,7 @@ const Node: React.FC<Props> = ({ tree, index }) => {
 
   //TODO: add visited color
   const nodeClasses = clsx(
-    "text-white h-9 w-9 md:w-12 md:h-12 flex items-center justify-center rounded-full text-center",
+    "text-white h-9 w-9 md:w-12 md:h-12 flex items-center justify-center rounded-full text-center transition duration-300 ease-in-out",
     {
       "bg-retroDark-accent": !tree[index].isActive, // Default node
       "bg-highlight": tree[index].isActive, // Visited node

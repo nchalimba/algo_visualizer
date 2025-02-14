@@ -86,3 +86,51 @@ export type SelectOption<T = string> = {
   label: string;
   value: T;
 };
+
+/* API */
+
+export type HealthResponse = {
+  vector_store: "up" | "down";
+  db: "up" | "down";
+};
+export type Source = {
+  source_key: string;
+  source_label: string;
+};
+
+export type ChatMessage = {
+  id: string;
+  content: string;
+  type: string;
+  step: number;
+  sources: Source[];
+  loading?: boolean;
+};
+
+export type ChatResponse = {
+  done: boolean;
+  text: string;
+  error?: string;
+};
+
+export type InfoResponse = {
+  llm_provider: string;
+  llm: string;
+  embedding_model: string;
+  rag_version: string;
+  chunk_size: number;
+  chunk_overlap: number;
+  vector_dimension: number;
+  sources: string[];
+};
+
+export type TextIndexRequest = {
+  title: string;
+  text: string;
+};
+
+export type UrlIndexRequest = {
+  urls: string[];
+};
+
+export type SourceType = "text" | "url" | "pdf";

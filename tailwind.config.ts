@@ -17,12 +17,19 @@ export default {
   ], // Ensure Tailwind compiles these
   theme: {
     extend: {
+      screens: {
+        xs: "450px",
+      },
       colors: {
         highlight: "#9ca9ff", // Custom vibrant purple
+        alert: "#DC2626", // Custom red color for alerts/errors
+        warning: "#FF7F50", // Retro coral orange for warnings
+        info: "#5B7AAE", // Muted steel blue for info messages
         retroDark: {
           100: "#0d0e1c", // Very dark blue-gray background (almost black)
           200: "#10182a", // Darker blue-gray for subtle contrast
           300: "#141f38", // Deeper, darker blue-gray for shadows
+          350: "#1b294d", // Darker blue-gray for contrast
           400: "#3a4a75", // Darker medium blue-gray for softer contrast
           500: "#6071a1", // Retro blue, a bit muted but still noticeable
           accent: "#7189FF", // Neon blue accent (same as before for that Pac-Man glow)
@@ -37,6 +44,30 @@ export default {
       },
       fontFamily: {
         retro: ["'Oxanium'", "cursive"], // Retro font
+      },
+      animation: {
+        "fade-in": "fade-in 0.3s ease-in-out",
+        "fade-in-down": "fade-in-down 0.3s ease-in-out",
+      },
+      keyframes: {
+        "fade-in": {
+          "0%": {
+            opacity: "0",
+          },
+          "100%": {
+            opacity: "1",
+          },
+        },
+        "fade-in-down": {
+          "0%": {
+            opacity: "0",
+            transform: "translate3d(0, -100%, 0)",
+          },
+          "100%": {
+            opacity: "1",
+            transform: "translate3d(0, 0, 0)",
+          },
+        },
       },
     },
   },

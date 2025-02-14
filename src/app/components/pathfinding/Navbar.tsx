@@ -1,6 +1,5 @@
 // Components/Navbar.tsx
-import React, { useState } from "react";
-import Select from "../common/Select";
+import React from "react";
 import Slider from "../common/Slider";
 import Button from "../common/Button";
 import {
@@ -9,6 +8,7 @@ import {
   SelectOption,
 } from "@/app/types";
 import { FaBolt, FaPlay, FaTrash } from "react-icons/fa";
+import Select from "../common/Select";
 
 type Props = {
   disableControls: boolean;
@@ -59,7 +59,7 @@ export const Navbar: React.FC<Props> = ({
   };
 
   return (
-    <nav className="bg-gray-900 text-white p-4 flex flex-col justify-between xl:flex-row items-center gap-4 w-full">
+    <nav className="text-white p-4 flex flex-col justify-between xl:flex-row items-center gap-4 w-full border-b border-retroDark-400">
       <div className="flex gap-2 items-center">
         <Button
           onClick={() => {
@@ -86,9 +86,11 @@ export const Navbar: React.FC<Props> = ({
         <div className="flex-grow hidden md:inline">
           <Select
             options={algorithmOptions}
-            value={algorithmOptions.find(
-              (option) => option.value === settings.algo
-            )}
+            value={
+              algorithmOptions.find(
+                (option) => option.value === settings.algo
+              ) || null
+            }
             onChange={handleAlgoChange}
             placeholder="Select Algorithm"
             disabled={disableControls}
@@ -105,9 +107,10 @@ export const Navbar: React.FC<Props> = ({
       <div className="md:hidden">
         <Select
           options={algorithmOptions}
-          value={algorithmOptions.find(
-            (option) => option.value === settings.algo
-          )}
+          value={
+            algorithmOptions.find((option) => option.value === settings.algo) ||
+            null
+          }
           onChange={handleAlgoChange}
           placeholder="Select Algorithm"
           disabled={disableControls}

@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 
-import { SortingElement, SortingSettings, SortType } from "../../types";
+import {
+  SelectOption,
+  SortingElement,
+  SortingSettings,
+  SortType,
+} from "../../types";
 
 import Slider from "../common/Slider";
 import Button from "../common/Button";
 import sort from "@/utils/sorting/sort";
 import { animate } from "@/utils/sorting/visualize";
-import Select from "../common/Select";
 import { FaBolt, FaPlay } from "react-icons/fa";
+import Select from "../common/Select";
 
 type Props = {
   settings: SortingSettings;
@@ -31,7 +36,8 @@ const Navbar: React.FC<Props> = ({
   elements,
   setElements,
 }) => {
-  const [disableButtons, setDisableButtons] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [disableButtons, setDisableButtons] = useState(true);
 
   const handleDelayChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSettings((prev) => ({ ...prev, delay: Number(event.target.value) }));
@@ -46,16 +52,21 @@ const Navbar: React.FC<Props> = ({
 
   const handleSort = () => {
     if (!settings.algoType) return;
-    setDisableButtons(true);
+    setLoading(true);
     const { swapArray } = sort(settings.algoType as SortType, elements);
 
     animate({
       swapArray,
-      setDisableButtons,
+      setDisableButtons: setLoading,
       setElements,
       delay: settings.delay,
       isMerge: settings.algoType === "merge_sort",
     });
+  };
+
+  const handleAlgoChange = (value: SelectOption<string>) => {
+    setSettings((prev) => ({ ...prev, algoType: value.value }));
+    setDisableButtons(false);
   };
 
   const handleGenerateNew = () => {
@@ -63,9 +74,12 @@ const Navbar: React.FC<Props> = ({
   };
 
   return (
-    <nav className="p-4 bg-gray-900 text-white flex flex-col lg:flex-row lg:gap-4 items-center justify-between w-full">
+    <nav className="p-4 text-white flex flex-col lg:flex-row lg:gap-4 items-center justify-between w-full border-b border-retroDark-400">
       <div className="flex items-center space-x-4">
-        <Button onClick={handleGenerateNew} disabled={disableButtons}>
+        <Button
+          onClick={handleGenerateNew}
+          disabled={disableButtons || loading}
+        >
           <div className="flex items-center gap-2">
             <FaBolt className="text-xs" />
             <span className="hidden md:inline">New</span>
@@ -73,17 +87,19 @@ const Navbar: React.FC<Props> = ({
         </Button>
         <div className="hidden md:inline">
           <Select
+            className="md:w-40 lg:w-40"
             options={algoOptions}
-            value={algoOptions.find(
-              (option) => option.value === settings.algoType
-            )}
-            placeholder="Select algo..."
-            onChange={(value) =>
-              setSettings((prev) => ({ ...prev, algoType: value.value }))
+            disabled={loading}
+            value={
+              algoOptions.find(
+                (option) => option.value === settings.algoType
+              ) || null
             }
+            placeholder="Select Algo..."
+            onChange={(value) => handleAlgoChange(value)}
           />
         </div>
-        <Button onClick={handleSort} disabled={disableButtons}>
+        <Button onClick={handleSort} disabled={disableButtons || loading}>
           <div className="flex items-center gap-2">
             <FaPlay className="text-xs" />
             <span className="hidden md:inline">Start</span>
@@ -93,14 +109,15 @@ const Navbar: React.FC<Props> = ({
 
       <div className="mt-4 md:hidden">
         <Select
+          className="w-40"
           options={algoOptions}
-          value={algoOptions.find(
-            (option) => option.value === settings.algoType
-          )}
-          placeholder="Select algo..."
-          onChange={(value) =>
-            setSettings((prev) => ({ ...prev, algoType: value.value }))
+          disabled={loading}
+          value={
+            algoOptions.find((option) => option.value === settings.algoType) ||
+            null
           }
+          placeholder="Select algo..."
+          onChange={(value) => handleAlgoChange(value)}
         />
       </div>
 
